@@ -10,11 +10,13 @@ import CreateBus from './componentsBus/create.component';
 import EditBus from './componentsBus/edit.component';
 import IndexBus from './componentsBus/index.component';
 
-import CreateNad from './componentsNad/create.component';
-
 import CreateTipo from './componentsTipo/create.component';
 import EditTipo from './componentsTipo/edit.component';
 import IndexTipo from './componentsTipo/index.component';
+
+import CreateNad from './componentsNad/create.component';
+import EditNad from './componentsNad/edit.component';
+import IndexNad from './componentsNad/index.component';
 
 class App extends Component {
   render() {
@@ -30,7 +32,7 @@ class App extends Component {
                     <NavDropdown.Item href="/indexTipo">Tipo</NavDropdown.Item>
                     <NavDropdown.Item href="/indexPerson">Person</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/CreateNad">Nad</NavDropdown.Item>
+                    <NavDropdown.Item href="/indexNad">Nad</NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
                 <Nav>
@@ -50,6 +52,8 @@ class App extends Component {
                 <Route path='/indexTipo' component={ IndexTipo } />
 
                 <Route exact path='/createNad' component={ CreateNad } />
+                <Route path='/editNad/:id' component={ EditNad } /> 
+                <Route path='/indexNad' component={ IndexNad } />
 
             </Switch>
         </div>

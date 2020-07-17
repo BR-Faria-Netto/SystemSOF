@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Select from 'react-select';
+
+const optionsTipos = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+
 export default class Create extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +20,7 @@ export default class Create extends Component {
       codigo: '',
       descricao: ''
     }
+    
   }
   onChangeCodigo(e) {
     this.setState({
@@ -64,11 +73,20 @@ export default class Create extends Component {
                       onChange={this.onChangeDescricao}
                       />
                 </div>
+
+                <div>
+                  <Select
+                      isClearable
+                      options={optionsTipos}
+                    />                
+                </div>
+
                 <div className="form-group">
                     <input type="submit" 
                       value="Salvar" 
                       className="btn btn-primary"/>
                 </div>
+
             </form>
         </div>
     )

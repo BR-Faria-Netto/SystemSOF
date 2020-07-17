@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import InputGroup from 'react-bootstrap/InputGroup'
+
 export default class Edit extends Component {
   constructor(props) {
     super(props);

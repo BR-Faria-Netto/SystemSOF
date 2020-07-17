@@ -7,10 +7,11 @@ const mongoose = require('mongoose');
 const config = require('./DB.js');
 const businessRoute = require('./business.route');
 const tiposRoute = require('./tipos.route');
+const nadsRoute = require('./nads.route');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
-  () => {console.log('Database is connected RORO') },
+  () => {console.log('Database is connected Banco Teste') },
   err => { console.log('Can not connect to the database'+ err)}
 );
 
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 
 app.use('/business', businessRoute);
 app.use('/tipos', tiposRoute);
+app.use('/nads', nadsRoute);
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);
