@@ -65,7 +65,7 @@ nadsRoute.route('/update/:id').post(function (req, res) {
         nad.cid = req.body.cid;
         nad.cep = req.body.cep;
         nad.cnpj = req.body.cnpj;
-        nad.nads.uf = req.body.uf;
+        nad.uf = req.body.uf;
         nad.banrec = req.body.banrec;
         nad.agerec = req.body.agerec;
         nad.ccrec = req.body.ccrec;

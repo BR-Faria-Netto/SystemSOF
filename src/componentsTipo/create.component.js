@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import Select from 'react-select';
 
-const optionsTipos = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+var optionsTipos = [];
 
 export default class Create extends Component {
   constructor(props) {
@@ -15,6 +10,13 @@ export default class Create extends Component {
     this.onChangeCodigo = this.onChangeCodigo.bind(this);
     this.onChangeDescricao = this.onChangeDescricao.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    
+    axios.get('http://localhost:4000/tipos').then(resp => {
+         Object.entries(resp.data).forEach(entry => {
+           const [key, value] = entry;
+           optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
+         });
+    });
 
     this.state = {
       codigo: '',
@@ -39,6 +41,7 @@ export default class Create extends Component {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
+
     axios.post('http://localhost:4000/tipos/add', obj)
         .then(res => console.log(res.data));
     
@@ -48,10 +51,20 @@ export default class Create extends Component {
     })
 
     this.props.history.push('/indexTipo');
-    
+  
   }
- 
+
+  renderOptions(option_items) {
+    if(option_items) {
+        return Object.entries(option_items).map(function (item) {
+            return <option key={item[0]} value={item[0]}>{item[1]}</option>
+        })
+    }
+  }
+
   render() {
+
+    
     return (
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Add New Tipo</h3>
@@ -74,11 +87,16 @@ export default class Create extends Component {
                       />
                 </div>
 
+                {/* <select className="form-control"
+                    multiple={this.props.multiple}
+                    name={this.props.name}
+                    value={this.props.value}
+                    disabled={this.props.disabled}
+                    ref={this.ref_input}>
+                </select>
+ */}
                 <div>
-                  <Select
-                      isClearable
-                      options={optionsTipos}
-                    />                
+                   <Select options={optionsTipos} />
                 </div>
 
                 <div className="form-group">
@@ -92,3 +110,4 @@ export default class Create extends Component {
     )
   }
 }
+

@@ -36,16 +36,22 @@ export default class Index extends Component {
 
       return (
         <div>
-          <h3 align="center">Nads List</h3>
+          <h3 align="center">Nads Emitidas</h3>
           <table className="table table-hover" style={{ marginTop: 20}}> 
             <thead>
               <tr>
                 <th>Numero</th>
                 <th>Processo</th>
+                <th>Data</th>
                 <th>Favorecido</th>
                 <th>Valor</th>
-                <th>Action</th>
-                <th><Link to={'/createNad'} class="btn btn-sm btn-primary">Incluir</Link></th>
+                <th>Evento</th>
+                <th>Unidade Gestora</th>
+                <th>Programa Trabalho</th>
+                <th>Natureza Despesa</th>
+                <th>Fonte Recurso</th>
+                <th>Opções</th>
+                <th><Link to={'/createNad'} className="btn btn-sm btn-primary">Incluir</Link></th>
               </tr>
             </thead>
             <tbody>

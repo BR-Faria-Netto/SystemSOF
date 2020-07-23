@@ -27,19 +27,31 @@ class TableRow extends React.Component {
             {this.props.obj.datanad}
           </td>
           <td>
+            {this.props.obj.nomefav}
+          </td>
+          <td>
+            {this.props.obj.valor}
+          </td>
+          <td>
             {this.props.obj.evenad}
           </td>
           <td>
-            {this.props.obj.catgast}
+            {this.props.obj.unigest}
           </td>
           <td>
-            {this.props.obj.secret}
+            {this.props.obj.progtrab}
           </td>
           <td>
-            <Link to={"/editNad/"+this.props.obj._id} className="btn btn-sm btn-primary">Edit</Link>
+            {this.props.obj.natdesp}
           </td>
           <td>
-            <button onClick={this.delete} className="btn btn-sm btn-danger">Delete</button>
+            {this.props.obj.fontrec}
+          </td>
+          <td>
+            <Link to={"/editNad/"+this.props.obj._id} className="btn btn-sm btn-primary">Alterar</Link>
+          </td>
+          <td>
+            <button onClick={this.delete} className="btn btn-sm btn-danger">Excluir</button>
           </td>
         </tr>
     );

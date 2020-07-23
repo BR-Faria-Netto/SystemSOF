@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import SelectTipo from '.\SelectTipo';
+
+var optionsTipos = [];
 
 export default class Edit extends Component {
+
   constructor(props) {
     super(props);
+    
     this.onChangeNumnad = this.onChangeNumnad.bind(this);
     this.onChangeProcnad = this.onChangeProcnad.bind(this);
     this.onChangeDatanad = this.onChangeDatanad.bind(this);
@@ -64,7 +69,6 @@ export default class Edit extends Component {
     this.onChangeDatarat = this.onChangeDatarat.bind(this);  
 
     this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
       numnad : '',
       procnad : '',
@@ -125,8 +129,9 @@ export default class Edit extends Component {
       matrat : '',
       datarat : ''
     }
-  }
 
+  }
+  
   componentDidMount() {
       axios.get('http://localhost:4000/nads/edit/'+this.props.match.params.id)
           .then(response => {
@@ -188,13 +193,13 @@ export default class Edit extends Component {
                 ratificador : response.data.ratificador,
                 delerat : response.data.delerat,
                 matrat : response.data.matrat,
-                datarat : response.data.datarat 
-              
+                datarat : response.data.datarat
               });
           })
           .catch(function (error) {
               console.log(error);
           })
+
     }
 
     onChangeNumnad(e) {
@@ -542,8 +547,7 @@ export default class Edit extends Component {
         datarat: e.target.value
       })  
     }
- 
-
+    
   onSubmit(e) {
     e.preventDefault();
     const obj = {
@@ -611,339 +615,352 @@ export default class Edit extends Component {
     
     this.props.history.push('/indexNad');
   }
- 
+  
   render() {
+
+    // axios.get('http://localhost:4000/tipos').then(resp => {
+    //    Object.entries(resp.data).forEach(entry => {
+    //      const [key, value] = entry;
+    //      optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
+    //    });
+    // });
+
+    // console.log(optionsTipos);
+
     return (
-      <div style={{ marginTop: 10 }}>
-      <form onSubmit={this.onSubmit}>
-            <div  id="NAD" name="NAD"> 
-              <div class="form-row">
-                <div class="col-sm-6">
-                  <h2>Nota de Autorização de Despesa</h2>
+        <div style={{ marginTop: 10 }}>
+            <form onSubmit={this.onSubmit}>
+
+                <div>
+                   <SelectTipo />
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Número da NAD</label>  
-                  <input type="text" id="numnad" class="form-control input-md" value={this.nunnad} onChange={this.onChangeNumnad}/>
+
+              <div className="form-row">
+                <div className="col-sm-6">
+                  <h3>Nota de Autorização de Despesa</h3>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Processo</label>  
-                  <input type="text" id="procnad" class="form-control input-md" value={this.procnad} onChange={this.onChangeProcnad}/>
+                <div className="col-sm-1">
+                  <label>NAD</label>  
+                  <input type="text" id="numnad" className="form-control input-md" value={this.state.numnad} onChange={this.onChangeNumnad}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Data</label>  
-                  <input type="text" id="datanad" class="form-control input-md" value={this.datanad} onChange={this.onChangeDatanad}/>
+                <div className="col-sm-3">
+                  <label>Processo</label>  
+                  <input type="text" id="procnad" className="form-control input-md" value={this.state.procnad} onChange={this.onChangeProcnad}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Data</label>  
+                  <input type="text" id="datanad" className="form-control input-md" value={this.state.datanad} onChange={this.onChangeDatanad}/>
                 </div>
               </div>
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Evento da Nad:</label>  
-                  <select class="form-control" id="evenad" value={this.evenad} onChange={this.onChangeEvenad}>
-                    <option>1-Empenho de Despesa</option>
-                    <option>2-Reforço de Empenho</option>
-                    <option>3-Anulação da Nad</option>
-                  </select>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Categoria de Gastos:</label>  
-                  <select class="form-control" id="catgast" value={this.catgast} onChange={this.onChangeCatgast}>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Evento da Nad:</label>  
+                  <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad}>
                     <option>1-Empenho de Despesa</option>
                     <option>2-Reforço de Empenho</option>
                     <option>3-Anulação da Nad</option>
                     <option>4-Cancelamento</option>
                   </select>
                 </div>
-                <div class="col-sm-3">
-                  <label for="Nome">Adiantamento:</label>  
-                  <div class="form-check">
-                    <label class="form-check-inline form-check-label" for="inlineRadio1">Sim </label>
-                    <input class="form-check-inline form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1"/>
-                    <label class="form-check-inline form-check-label" for="inlineRadio2">Não </label>
-                    <input class="form-check-inline form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2"/>
-                  </div>
+                <div className="col-sm-4">
+                  <label>Categoria de Gastos:</label>  
+                  <select className="form-control" id="catgast" value={this.state.catgast} onChange={this.onChangeCatgast}>
+                    <option>1-Empenho de Despesa</option>
+                    <option>2-Reforço de Empenho</option>
+                    <option>3-Anulação da Nad</option>
+                    <option>4-Cancelamento</option>
+                  </select>
+                </div>
+                <div className="col-sm-1">
+                    <label>Adiantamento:</label>  
+                    <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Sim'} onChange={this.onChangeAdant}/>Sim
+                    <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Não'} onChange={this.onChangeAdant}/>Não
+                  </div>    
+              </div>
+              <div className="form-row">
+                <div className="col-sm-12">
+                  <label>Secretaria:</label>  
+                  <input id="secret" name="secret" className="form-control input-md" type="text" value={this.state.secret} onChange={this.onChangeSecret} />
                 </div>
               </div>
-              <div class="form-row">
-                <div class="col-sm-12">
-                  <label for="Nome">Secretaria:</label>  
-                  <input id="secret" name="secret" class="form-control input-md" type="text" value={this.secret} onChange={this.onChangeSecret} />
+              <div className="form-row">
+                <div className="col-sm-6">
+                  <label>Unidade Gestora:</label>  
+                  <input id="unigest" name="unigest" className="form-control input-md" required="" type="text" value={this.state.unigest} onChange={this.onChangeUnigest}/>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-sm-6">
-                  <label for="Nome">Unidade Gestora:</label>  
-                  <input id="unigest" name="unigest" class="form-control input-md" required="" type="text" value={this.unigest} onChange={this.onChangeUnigest}/>
-                </div>
-                <div class="col-sm-6">
-                  <label for="Nome">Unidade Orçamentaria:</label>  
-                  <input id="uniorc" name="uniorc" class="form-control input-md" required="" type="text" value={this.uniorc} onChange={this.onChangeUniorc}/>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Programa de Trabalho</label>  
-                  <input id="progtrab" name="progtrab" class="form-control input-md" required="" type="text" value={this.progtrab} onChange={this.onChangeProgtrab}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Natureza de Despesa</label>  
-                  <input id="natdesp" name="natdesp" class="form-control input-md" required="" type="text" value={this.natdesp} onChange={this.onChangeNatdesp}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Fonte de Recurso</label>  
-                  <input id="fontrec" name="fontrec" class="form-control input-md" required="" type="text" value={this.fontrec} onChange={this.onChangeFontrec}/>
+                <div className="col-sm-6">
+                  <label>Unidade Orçamentaria:</label>  
+                  <input id="uniorc" name="uniorc" className="form-control input-md" required="" type="text" value={this.state.uniorc} onChange={this.onChangeUniorc}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-3">
-                  <label for="Nome">Tipo de Credito</label>  
-                  <select class="form-control" id="tipcre" value={this.tipcre} onChange={this.onChangeTipcre}>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Programa de Trabalho</label>  
+                  <input id="progtrab" name="progtrab" className="form-control input-md" required="" type="text" value={this.state.progtrab} onChange={this.onChangeProgtrab}/>
+                </div>
+                <div className="col-sm-4">
+                  <label>Natureza de Despesa</label>  
+                  <input id="natdesp" name="natdesp" className="form-control input-md" required="" type="text" value={this.state.natdesp} onChange={this.onChangeNatdesp}/>
+                </div>
+                <div className="col-sm-4">
+                  <label>Fonte de Recurso</label>  
+                  <input id="fontrec" name="fontrec" className="form-control input-md" required="" type="text" value={this.state.fontrec} onChange={this.onChangeFontrec}/>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-3">
+                  <label>Tipo de Credito</label>  
+                  <select className="form-control" id="tipcre" value={this.state.tipcre} onChange={this.onChangeTipcre}>
                     <option>1-Orçamento Geral Suplementar</option>
                     <option>2-Especial</option>
                     <option>3-Extraordinario</option>
                   </select>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Banco</label>  
-                  <input id="banpag" name="banpag" class="form-control input-md" required="" type="text" value={this.banpag} onChange={this.onChangeBanpag}/>
+                <div className="col-sm-2">
+                  <label>Banco</label>  
+                  <input id="banpag" name="banpag" className="form-control input-md" required="" type="text" value={this.state.banpag} onChange={this.onChangeBanpag}/>
                 </div>
-                <div class="col-sm-3">
-                  <label for="Nome">Agencia</label>  
-                  <input id="agepag" name="agepag" class="form-control input-md" required="" type="text" value={this.agepag} onChange={this.onChangeAgepag}/>
+                <div className="col-sm-3">
+                  <label>Agencia</label>  
+                  <input id="agepag" name="agepag" className="form-control input-md" required="" type="text" value={this.state.agepag} onChange={this.onChangeAgepag}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Conta Corrente</label>  
-                  <input id="ccpag" name="ccpag" class="form-control input-md" required="" type="text" value={this.ccpag} onChange={this.onChangeCcpag}/>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-12">
-                  <label for="Nome">Nome do Favorecido:</label>  
-                </div>
-                  <input id="nomefav" name="nomefav" class="form-control input-md" required="" type="text" value={this.nomefav} onChange={this.onChangeNomefav} />
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-12">
-                  <label for="Nome">Endereço</label>  
-                  <input id="ender" name="ender" class="form-control input-md" required="" type="text" value={this.ender} onChange={this.onChangeEnder} />
+                <div className="col-sm-4">
+                  <label>Conta Corrente</label>  
+                  <input id="ccpag" name="ccpag" className="form-control input-md" required="" type="text" value={this.state.ccpag} onChange={this.onChangeCcpag}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Bairro</label>  
-                  <input id="bai" name="bai" class="form-control input-md" required="" type="text" value={this.bai} onChange={this.onChangeBai}/>
+              <div className="form-row">
+                <div className="col-sm-12">
+                  <label>Nome do Favorecido:</label>  
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Cidade</label>  
-                  <input id="cid" name="cid" class="form-control input-md" required="" type="text" value={this.cid} onChange={this.onChangeCid}/>
-                </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Cep</label>  
-                  <input id="cep" name="cep" class="form-control input-md" required="" type="text" value={this.cep} onChange={this.onChangeCep}/>
-                </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Estado</label>  
-                  <input id="uf" name="uf" class="form-control input-md" required="" type="text" value={this.uf} onChange={this.onChangeUf}/>
+                  <input id="nomefav" name="nomefav" className="form-control input-md" required="" type="text" value={this.state.nomefav} onChange={this.onChangeNomefav} />
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-12">
+                  <label>Endereço</label>  
+                  <input id="ender" name="ender" className="form-control input-md" required="" type="text" value={this.state.ender} onChange={this.onChangeEnder} />
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-3">
-                  <label for="Nome">Cnpj/Cpf:</label>  
-                  <input id="cnpj" name="cnpj" class="form-control input-md" required="" type="text" value={this.cnpj} onChange={this.onChangeCnpj}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Bairro</label>  
+                  <input id="bai" name="bai" className="form-control input-md" required="" type="text" value={this.state.bai} onChange={this.onChangeBai}/>
                 </div>
-                <div class="col-sm-3">
-                  <label for="Nome">Banco</label>  
-                  <input id="banrec" name="banrec" class="form-control input-md" required="" type="text" value={this.banrec} onChange={this.onChangeBanrec}/>
+                <div className="col-sm-4">
+                  <label>Cidade</label>  
+                  <input id="cid" name="cid" className="form-control input-md" required="" type="text" value={this.state.cid} onChange={this.onChangeCid}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Agencia</label>  
-                  <input id="agerec" name="agerec" class="form-control input-md" required="" type="text" value={this.agerec} onChange={this.onChangeAgerec}/>
+                <div className="col-sm-2">
+                  <label>Cep</label>  
+                  <input id="cep" name="cep" className="form-control input-md" required="" type="text" value={this.state.cep} onChange={this.onChangeCep}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Conta Corrente</label>  
-                  <input id="ccrec" name="ccrec" class="form-control input-md" required="" type="text" value={this.ccrec} onChange={this.onChangeCcrec}/>
+                <div className="col-sm-2">
+                  <label>Estado</label>  
+                  <input id="uf" name="uf" className="form-control input-md" required="" type="text" value={this.state.uf} onChange={this.onChangeUf}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-2">
-                  <label for="Nome">Tipo de Empenho</label>  
-                  <select class="form-control" id="tipemp" value={this.tipemp} onChange={this.onChangeTipemp}>
+              <div className="form-row">
+                <div className="col-sm-3">
+                  <label>Cnpj/Cpf:</label>  
+                  <input id="cnpj" name="cnpj" className="form-control input-md" required="" type="text" value={this.state.cnpj} onChange={this.onChangeCnpj}/>
+                </div>
+                <div className="col-sm-3">
+                  <label>Banco</label>  
+                  <input id="banrec" name="banrec" className="form-control input-md" required="" type="text" value={this.state.banrec} onChange={this.onChangeBanrec}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Agencia</label>  
+                  <input id="agerec" name="agerec" className="form-control input-md" required="" type="text" value={this.state.agerec} onChange={this.onChangeAgerec}/>
+                </div>
+                <div className="col-sm-4">
+                  <label>Conta Corrente</label>  
+                  <input id="ccrec" name="ccrec" className="form-control input-md" required="" type="text" value={this.state.ccrec} onChange={this.onChangeCcrec}/>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-2">
+                  <label>Tipo de Empenho</label>  
+                  <select className="form-control" id="tipemp" value={this.state.tipemp} onChange={this.onChangeTipemp}>
                     <option>1-Ordinario</option>
                     <option>2-Estimativo</option>
                     <option>3-Global</option>
                   </select>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Valor</label>  
-                  <input id="valor" name="valor" class="form-control input-md" required="" type="text" value={this.valor} onChange={this.onChangeValor}/>
+                <div className="col-sm-2">
+                  <label>Valor</label>  
+                  <input id="valor" name="valor" className="form-control input-md" required="" type="text" value={this.state.valor} onChange={this.onChangeValor}/>
                 </div>
-                <div class="col-sm-8">
-                  <label for="Nome">Extenso</label>  
-                  <input id="extenso" name="estenso" class="form-control input-md" required="" type="text" value={this.extenso} onChange={this.onChangeExtenso}/>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-12">
-                  <label for="Nome">Descrição da Despesa</label>  
-                  <input id="descdesp" name="descdesp" class="form-control input-md" required="" type="text" value={this.descdesp} onChange={this.onChangeDescdesp}/>
+                <div className="col-sm-8">
+                  <label>Extenso</label>  
+                  <input id="extenso" name="estenso" className="form-control input-md" required="" type="text" value={this.state.extenso} onChange={this.onChangeExtenso}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Janeiro</label>  
-                  <input id="jan" name="jan" class="form-control input-md" required="" type="text" value={this.jan} onChange={this.onChangeJan}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Maio</label>  
-                  <input id="mai" name="mai" class="form-control input-md" required="" type="text" value={this.mai} onChange={this.onChangeMai}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Setembro</label>  
-                  <input id="set" name="set" class="form-control input-md" required="" type="text" value={this.set} onChange={this.onChangeSet}/>
+              <div className="form-row">
+                <div className="col-sm-12">
+                  <label>Descrição da Despesa</label>  
+                  <input id="descdesp" name="descdesp" className="form-control input-md" required="" type="text" value={this.state.descdesp} onChange={this.onChangeDescdesp}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Fevereiro</label>  
-                  <input id="fev" name="fev" class="form-control input-md" required="" type="text" value={this.fev} onChange={this.onChangeFev}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Janeiro</label>  
+                  <input id="jan" name="jan" className="form-control input-md" required="" type="text" value={this.state.jan} onChange={this.onChangeJan}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Junho</label>  
-                  <input id="jun" name="jun" class="form-control input-md" required="" type="text" value={this.jun} onChange={this.onChangeJun}/>
+                <div className="col-sm-4">
+                  <label>Maio</label>  
+                  <input id="mai" name="mai" className="form-control input-md" required="" type="text" value={this.state.mai} onChange={this.onChangeMai}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Outubro</label>  
-                  <input id="out" name="out" class="form-control input-md" required="" type="text" value={this.out} onChange={this.onChangeOut}/>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Março</label>  
-                  <input id="mar" name="mar" class="form-control input-md" required="" type="text" value={this.mar} onChange={this.onChangeMar}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Julho</label>  
-                  <input id="jul" name="jul" class="form-control input-md" required="" type="text" value={this.jul} onChange={this.onChangeJul}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Novembro</label>  
-                  <input id="nov" name="nov" class="form-control input-md" required="" type="text" value={this.nov} onChange={this.onChangeNov}/>
+                <div className="col-sm-4">
+                  <label>Setembro</label>  
+                  <input id="set" name="set" className="form-control input-md" required="" type="text" value={this.state.set} onChange={this.onChangeSet}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Abril</label>  
-                  <input id="abr" name="abr" class="form-control input-md" required="" type="text" value={this.abr} onChange={this.onChangeAbr}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Fevereiro</label>  
+                  <input id="fev" name="fev" className="form-control input-md" required="" type="text" value={this.state.fev} onChange={this.onChangeFev}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Agosto</label>  
-                  <input id="ago" name="ago" class="form-control input-md" required="" type="text" value={this.ago} onChange={this.onChangeAgo}/>
+                <div className="col-sm-4">
+                  <label>Junho</label>  
+                  <input id="jun" name="jun" className="form-control input-md" required="" type="text" value={this.state.jun} onChange={this.onChangeJun}/>
                 </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Dezembro</label>  
-                  <input id="dez" name="dez" class="form-control input-md" required="" type="text" value={this.dez} onChange={this.onChangeDez}/>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-sm-4">
-                  <label for="Nome">Tipo de Licitação</label>  
-                  <input id="tiplic" name="tiplic" class="form-control input-md" required="" type="text" value={this.tiplic} onChange={this.onChangeTiplic}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Data de Abertura</label>  
-                  <input id="dataabert" name="dataabert" class="form-control input-md" required="" type="text" value={this.dataabert} onChange={this.onChangeDataabert}/>
-                </div>
-                <div class="col-sm-4">
-                  <label for="Nome">Numero</label>  
-                  <input id="numerolic" name="numerolic" class="form-control input-md" required="" type="text" value={this.numerolic} onChange={this.onChangeNumerolic}/>
+                <div className="col-sm-4">
+                  <label>Outubro</label>  
+                  <input id="out" name="out" className="form-control input-md" required="" type="text" value={this.state.out} onChange={this.onChangeOut}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-9">
-                  <label for="Nome">Base Legal</label>  
-                  <input id="baselegal" name="baselegal" class="form-control input-md" required="" type="text" value={this.baselegal} onChange={this.onChangeBaselegal}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Março</label>  
+                  <input id="mar" name="mar" className="form-control input-md" required="" type="text" value={this.state.mar} onChange={this.onChangeMar}/>
+                </div>
+                <div className="col-sm-4">
+                  <label>Julho</label>  
+                  <input id="jul" name="jul" className="form-control input-md" required="" type="text" value={this.state.jul} onChange={this.onChangeJul}/>
+                </div>
+                <div className="col-sm-4">
+                  <label>Novembro</label>  
+                  <input id="nov" name="nov" className="form-control input-md" required="" type="text" value={this.state.nov} onChange={this.onChangeNov}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-6">
-                  <label for="Nome">Emissor</label>  
-                  <input id="emissor" name="emissor" class="form-control input-md" required="" type="text" value={this.emissor} onChange={this.onChangeEmissor}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Abril</label>  
+                  <input id="abr" name="abr" className="form-control input-md" required="" type="text" value={this.state.abr} onChange={this.onChangeAbr}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Ato de Delegação</label>  
-                  <input id="deleemi" name="deleemi" class="form-control input-md" required="" type="text" value={this.deleemi} onChange={this.onChangeDeleemi}/>
+                <div className="col-sm-4">
+                  <label>Agosto</label>  
+                  <input id="ago" name="ago" className="form-control input-md" required="" type="text" value={this.state.ago} onChange={this.onChangeAgo}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Matricula</label>  
-                  <input id="matemi" name="matemi" class="form-control input-md" required="" type="text" value={this.matemi} onChange={this.onChangeMatemi}/>
-                </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Data</label>  
-                  <input id="dataemi" name="dataemi" class="form-control input-md" required="" type="text" value={this.dataemi} onChange={this.onChangeDataemi}/>
+                <div className="col-sm-4">
+                  <label>Dezembro</label>  
+                  <input id="dez" name="dez" className="form-control input-md" required="" type="text" value={this.state.dez} onChange={this.onChangeDez}/>
                 </div>
               </div>
 
-              <div class="form-row">
-                <div class="col-sm-6">
-                  <label for="Nome">Ordenador</label>  
-                  <input id="ordenador" name="ordenador" class="form-control input-md" required="" type="text" value={this.ordenador} onChange={this.onChangeOrdenador}/>
+              <div className="form-row">
+                <div className="col-sm-4">
+                  <label>Tipo de Licitação</label>  
+                  <input id="tiplic" name="tiplic" className="form-control input-md" required="" type="text" value={this.state.tiplic} onChange={this.onChangeTiplic}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Ato de Delegação</label>  
-                  <input id="deleord" name="deleord" class="form-control input-md" required="" type="text" value={this.deleord} onChange={this.onChangeDeleord}/>
+                <div className="col-sm-4">
+                  <label>Data de Abertura</label>  
+                  <input id="dataabert" name="dataabert" className="form-control input-md" required="" type="text" value={this.state.dataabert} onChange={this.onChangeDataabert}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Matricula</label>  
-                  <input id="matord" name="matord" class="form-control input-md" required="" type="text" value={this.matord} onChange={this.onChangeMatord}/>
+                <div className="col-sm-4">
+                  <label>Numero</label>  
+                  <input id="numerolic" name="numerolic" className="form-control input-md" required="" type="text" value={this.state.numerolic} onChange={this.onChangeNumerolic}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Data</label>  
-                  <input id="dataord" name="dataord" class="form-control input-md" required="" type="text" value={this.dataord} onChange={this.onChangeDataord}/>
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-12">
+                  <label>Base Legal</label>  
+                  <input id="baselegal" name="baselegal" className="form-control input-md" required="" type="text" value={this.state.baselegal} onChange={this.onChangeBaselegal}/>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-6">
+                  <label>Emissor</label>  
+                  <input id="emissor" name="emissor" className="form-control input-md" required="" type="text" value={this.state.emissor} onChange={this.onChangeEmissor}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Ato de Delegação</label>  
+                  <input id="deleemi" name="deleemi" className="form-control input-md" required="" type="text" value={this.state.deleemi} onChange={this.onChangeDeleemi}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Matricula</label>  
+                  <input id="matemi" name="matemi" className="form-control input-md" required="" type="text" value={this.state.matemi} onChange={this.onChangeMatemi}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Data</label>  
+                  <input id="dataemi" name="dataemi" className="form-control input-md" required="" type="text" value={this.state.dataemi} onChange={this.onChangeDataemi}/>
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="col-sm-6">
+                  <label>Ordenador</label>  
+                  <input id="ordenador" name="ordenador" className="form-control input-md" required="" type="text" value={this.state.ordenador} onChange={this.onChangeOrdenador}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Ato de Delegação</label>  
+                  <input id="deleord" name="deleord" className="form-control input-md" required="" type="text" value={this.state.deleord} onChange={this.onChangeDeleord}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Matricula</label>  
+                  <input id="matord" name="matord" className="form-control input-md" required="" type="text" value={this.state.matord} onChange={this.onChangeMatord}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Data</label>  
+                  <input id="dataord" name="dataord" className="form-control input-md" required="" type="text" value={this.state.dataord} onChange={this.onChangeDataord}/>
                 </div>
               </div>
             
-              <div class="form-row">
-                <div class="col-sm-6">
-                  <label for="Nome">Ratificador</label>  
-                  <input id="ratificador" name="ratificador" class="form-control input-md" required="" type="text" value={this.ratificador} onChange={this.onChangeRatificador}/>
+              <div className="form-row">
+                <div className="col-sm-6">
+                  <label>Ratificador</label>  
+                  <input id="ratificador" name="ratificador" className="form-control input-md" required="" type="text" value={this.state.ratificador} onChange={this.onChangeRatificador}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Ato de Delegação</label>  
-                  <input id="delerat" name="delerat" class="form-control input-md" required="" type="text" value={this.delerat} onChange={this.onChangeDelerat}/>
+                <div className="col-sm-2">
+                  <label>Ato de Delegação</label>  
+                  <input id="delerat" name="delerat" className="form-control input-md" required="" type="text" value={this.state.delerat} onChange={this.onChangeDelerat}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Matricula</label>  
-                  <input id="matrat" name="matrat" class="form-control input-md" required="" type="text" value={this.matrat} onChange={this.onChangeMatrat}/>
+                <div className="col-sm-2">
+                  <label>Matricula</label>  
+                  <input id="matrat" name="matrat" className="form-control input-md" required="" type="text" value={this.state.matrat} onChange={this.onChangeMatrat}/>
                 </div>
-                <div class="col-sm-2">
-                  <label for="Nome">Data</label>  
-                  <input id="datarat" name="datarat" class="form-control input-md" required="" type="text" value={this.datarat} onChange={this.onChangeDatarat}/>
+                <div className="col-sm-2">
+                  <label>Data</label>  
+                  <input id="datarat" name="datarat" className="form-control input-md" required="" type="text" value={this.state.datarat} onChange={this.onChangeDatarat}/>
                 </div>
               </div>
-              <div>
-
-              </div>
-              <div class="form-row">
-                  <div class="col-sm-2">
+              <hr></hr>
+              <div className="form-row">
+                  <div className="col-sm-1">
                       <input type="submit" value="Salvar" className="btn btn-primary"/>
                   </div>
+                  <div className="col-sm-1">
+                      {/*<button onClick={() => window.print()} className="btn btn-primary">Imprimir</button>
+                        <button onClick={this.PrintDiv('NAD')} className="btn btn-primary">Imprimir</button> 
+                      */}
+                  </div> 
               </div>
-          </div>
-      </form>
-  </div>
-   )
+          </form>
+      </div>
+    )
   }
 }
