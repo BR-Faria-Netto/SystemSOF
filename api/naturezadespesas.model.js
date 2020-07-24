@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Define collection and schema for Business
-let Tipos = new Schema(
+let NaturezaDespesas = new Schema(
 {
   codigo: {
     type: String
@@ -13,9 +13,9 @@ let Tipos = new Schema(
 
 },
 
-{ collection: 'tipos'}
+{ collection: 'naturezaDespesas'}
 
 );
 
-module.exports = mongoose.model('Tipos', Tipos);
+module.exports = mongoose.model('NaturezaDespesas', NaturezaDespesas);
 

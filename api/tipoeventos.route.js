@@ -3,12 +3,12 @@
 
 const express = require('express');
 
-const tiposRoute = express.Router();
+const tipoeventosRoute = express.Router();
 // Require Business model in our routes module
-let Tipo = require('./tipos.model');
+let Tipo = require('./tipoeventos.model');
 
 // Defined store route
-tiposRoute.route('/add').post(function (req, res) {
+tipoeventosRoute.route('/add').post(function (req, res) {
   let tipo = new Tipo(req.body);
   tipo.save()
     .then(tipo => {
@@ -20,7 +20,7 @@ tiposRoute.route('/add').post(function (req, res) {
 });
 
 // Defined get data(index or listing) route
-tiposRoute.route('/').get(function (req, res) {
+tipoeventosRoute.route('/').get(function (req, res) {
     Tipo.find(function(err, tipo){
     if(err){
       console.log(err);
@@ -32,7 +32,7 @@ tiposRoute.route('/').get(function (req, res) {
 });
 
 // Defined edit route
-tiposRoute.route('/edit/:id').get(function (req, res) {
+tipoeventosRoute.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
   Tipo.findById(id, function (err, tipo){
       res.json(tipo);
@@ -40,7 +40,7 @@ tiposRoute.route('/edit/:id').get(function (req, res) {
 });
 
 //  Defined update route
-tiposRoute.route('/update/:id').post(function (req, res) {
+tipoeventosRoute.route('/update/:id').post(function (req, res) {
     Tipo.findById(req.params.id, function(err, tipo) {
     if (!tipo)
       res.status(404).send("data is not found");
@@ -58,19 +58,11 @@ tiposRoute.route('/update/:id').post(function (req, res) {
 });
 
 // Defined delete | remove | destroy route
-tiposRoute.route('/delete/:id').get(function (req, res) {
+tipoeventosRoute.route('/delete/:id').get(function (req, res) {
     Tipo.findByIdAndRemove({_id: req.params.id}, function(err, tipo){
         if(err) res.json(err);
         else res.json('Successfully removed');
     });
 });
 
-// Defined delete | remove | destroy route
-tiposRoute.route('/delete/:id').get(function (req, res) {
-  Tipo.find({_id: req.params.id}, function(err, tipo){
-      if(err) res.json(err);
-      else res.json('Successfully removed');
-  });
-});
-
-module.exports = tiposRoute;
+module.exports = tipoeventosRoute;

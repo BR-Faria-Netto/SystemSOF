@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import SelectTipo from '.\SelectTipo';
 
 var optionsTipos = [];
+axios.get('http://localhost:4000/tipoeventos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
 
 export default class Edit extends Component {
 
   constructor(props) {
     super(props);
-    
+
+
     this.onChangeNumnad = this.onChangeNumnad.bind(this);
     this.onChangeProcnad = this.onChangeProcnad.bind(this);
     this.onChangeDatanad = this.onChangeDatanad.bind(this);
@@ -615,26 +621,13 @@ export default class Edit extends Component {
     
     this.props.history.push('/indexNad');
   }
-  
+
   render() {
-
-    // axios.get('http://localhost:4000/tipos').then(resp => {
-    //    Object.entries(resp.data).forEach(entry => {
-    //      const [key, value] = entry;
-    //      optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
-    //    });
-    // });
-
-    // console.log(optionsTipos);
 
     return (
         <div style={{ marginTop: 10 }}>
             <form onSubmit={this.onSubmit}>
-
-                <div>
-                   <SelectTipo />
-                </div>
-
+                
               <div className="form-row">
                 <div className="col-sm-6">
                   <h3>Nota de Autorização de Despesa</h3>
@@ -655,11 +648,8 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-4">
                   <label>Evento da Nad:</label>  
-                  <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad}>
-                    <option>1-Empenho de Despesa</option>
-                    <option>2-Reforço de Empenho</option>
-                    <option>3-Anulação da Nad</option>
-                    <option>4-Cancelamento</option>
+                  <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad} >
+                    {Object.keys(optionsTipos).map((t,i) => <option key={i} value={t}>{optionsTipos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-4">

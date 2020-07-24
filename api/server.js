@@ -5,8 +5,13 @@ const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
-const businessRoute = require('./business.route');
-const tiposRoute = require('./tipos.route');
+const favorecidosRoute = require('./favorecidos.route');
+const tipoeventosRoute = require('./tipoeventos.route');
+const fonterecursosRoute = require('./fonterecursos.route');
+
+const naturezadespesasRoute = require('./naturezadespesas.route');
+const progtrabalhosRoute = require('./progtrabalhos.route');
+
 const nadsRoute = require('./nads.route');
 
 mongoose.Promise = global.Promise;
@@ -19,8 +24,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/business', businessRoute);
-app.use('/tipos', tiposRoute);
+app.use('/favorecidos', favorecidosRoute);
+app.use('/tipoeventos', tipoeventosRoute);
+app.use('/fonterecursos', fonterecursosRoute);
+app.use('/naturezadespesas', naturezadespesasRoute);
+app.use('/progtrabalhos', progtrabalhosRoute);
+
 app.use('/nads', nadsRoute);
 
 app.listen(PORT, function(){

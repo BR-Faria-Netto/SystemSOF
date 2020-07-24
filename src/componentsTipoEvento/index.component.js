@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TableRow from './TableRow';
+import { Link } from 'react-router-dom';
 
 export default class Index extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {business: []};
+      this.state = {tipo: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/business')
+      axios.get('http://localhost:4000/tipoeventos')
         .then(response => {
-          this.setState({ business: response.data });
+          this.setState({ tipo: response.data });
         })
         .catch(function (error) {
           console.log(error);
         })
     }
     tabRow(){
-      return this.state.business.map(function(object, i){
+      return this.state.tipo.map(function(object, i){
           return <TableRow obj={object} key={i} />;
       });
     }
 
     render() {
 
-      axios.get('http://localhost:4000/business')
+      axios.get('http://localhost:4000/tipoeventos')
       .then(response => {
-        this.setState({ business: response.data });
+        this.setState({ tipo: response.data });
       })
       .catch(function (error) {
         console.log(error);
@@ -35,17 +36,14 @@ export default class Index extends Component {
 
       return (
         <div>
-          <h3 align="center">Business List</h3>
-          <table className="table table-hover" style={{ marginTop: 20}}> 
+          <h3 align="center">Tipo de Eventos</h3>
+          <table className="table table-hover"> 
             <thead>
               <tr>
-                <th>Person</th>
-                <th>Business</th>
-                <th>GST Number</th>
-                <th>Operadora</th>
-                <th>Action</th>
-                <th>
-                </th>
+                <th>Codigo</th>
+                <th>Descrição</th>
+                <th>Opções:</th>
+                <th><Link to={'/createTipoEvento'} class="btn btn-sm btn-primary">Incluir</Link></th>
               </tr>
             </thead>
             <tbody>
