@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Edit extends Component {
+export default class Create extends Component {
   constructor(props) {
     super(props);
     this.onChangeCodigo = this.onChangeCodigo.bind(this);
@@ -12,20 +12,8 @@ export default class Edit extends Component {
       codigo: '',
       descricao: ''
     }
+    
   }
-
-  componentDidMount() {
-      axios.get('http://localhost:4000/tipoeventos/edit/'+this.props.match.params.id)
-          .then(response => {
-              this.setState({ 
-                codigo: response.data.codigo, 
-                descricao: response.data.descricao });
-          })
-          .catch(function (error) {
-              console.log(error);
-          })
-    }
-
   onChangeCodigo(e) {
     this.setState({
       codigo: e.target.value
@@ -36,44 +24,68 @@ export default class Edit extends Component {
       descricao: e.target.value
     })  
   }
-    
+
   onSubmit(e) {
     e.preventDefault();
     const obj = {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
-    axios.post('http://localhost:4000/tipoeventos/update/'+this.props.match.params.id, obj)
+
+    axios.post('http://localhost:4000/tipocreditos/add', obj)
         .then(res => console.log(res.data));
     
-    this.props.history.push('/indexTipoEvento');
+    this.setState({
+      codigo: '',
+      descricao: ''
+    })
+
+    this.props.history.push('/indexTipoCredito');
+  
   }
- 
+
+  renderOptions(option_items) {
+    if(option_items) {
+        return Object.entries(option_items).map(function (item) {
+            return <option key={item[0]} value={item[0]}>{item[1]}</option>
+        })
+    }
+  }
+
   render() {
+
+    
     return (
         <div style={{ marginTop: 10 }}>
-            <h3 align="center">Alteração do Tipo de Evento</h3>
+            <h3 align="center">Relação de Tipo de Credito</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <div className="col-sm-6">
-                      <label>Codigo:  </label>
-                      <input type="text" className="form-control" value={this.state.codigo} onChange={this.onChangeCodigo}/>
-                    </div>
+                    <label>Codigo:  </label>
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      value={this.state.codigo}
+                      onChange={this.onChangeCodigo}
+                      />
                 </div>
                 <div className="form-group">
-                    <div className="col-sm-6">
                     <label>Descrição: </label>
-                      <input type="text" className="form-control" value={this.state.descricao} onChange={this.onChangeDescricao}/>
-                    </div>
+                    <input type="text" 
+                      className="form-control"
+                      value={this.state.descricao}
+                      onChange={this.onChangeDescricao}
+                      />
                 </div>
-                <div></div>
+
                 <div className="form-group">
                     <input type="submit" 
                       value="Salvar" 
                       className="btn btn-primary"/>
                 </div>
+
             </form>
         </div>
     )
   }
 }
+

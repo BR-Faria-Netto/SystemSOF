@@ -1,11 +1,92 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-var optionsTipos = [];
+var optionstipoeventos = [];
 axios.get('http://localhost:4000/tipoeventos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionstipoeventos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsgrupodespesas = [];
+axios.get('http://localhost:4000/grupodespesas').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsgrupodespesas.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsunidgestoras = [];
+axios.get('http://localhost:4000/unidgestoras').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsunidgestoras.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsunidorcamentarias = [];
+axios.get('http://localhost:4000/unidorcamentarias').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsunidorcamentarias.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsprogtrabalhos = [];
+axios.get('http://localhost:4000/progtrabalhos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsprogtrabalhos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsnaturezadespesas = [];
+axios.get('http://localhost:4000/naturezadespesas').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsnaturezadespesas.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsfonterecursos = [];
+axios.get('http://localhost:4000/fonterecursos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsfonterecursos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionsfavorecidos = [];
+axios.get('http://localhost:4000/favorecidos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionsfavorecidos.push({ value: (key, value.nomefav), label: (key, value.nomefav )});
+    //optionsfavorecidos.push({ value: (key, value._id), label: (key, value.nomefav )});
+  });
+});
+
+var optionstipocreditos = [];
+axios.get('http://localhost:4000/tipocreditos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionstipocreditos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionstipoempenhos = [];
+axios.get('http://localhost:4000/tipoempenhos').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionstipoempenhos.push({ value: (key, value._id), label: (key, value.descricao )});
+  });
+});
+
+var optionstipolicitacoes = [];
+axios.get('http://localhost:4000/tipolicitacoes').then(resp => {
+  Object.entries(resp.data).forEach(entry => {
+    const [key, value] = entry;
+    optionstipolicitacoes.push({ value: (key, value._id), label: (key, value.descricao )});
   });
 });
 
@@ -13,7 +94,6 @@ export default class Edit extends Component {
 
   constructor(props) {
     super(props);
-
 
     this.onChangeNumnad = this.onChangeNumnad.bind(this);
     this.onChangeProcnad = this.onChangeProcnad.bind(this);
@@ -649,16 +729,13 @@ export default class Edit extends Component {
                 <div className="col-sm-4">
                   <label>Evento da Nad:</label>  
                   <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad} >
-                    {Object.keys(optionsTipos).map((t,i) => <option key={i} value={t}>{optionsTipos[i].label}</option>)}
+                    {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={t}>{optionstipoeventos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <label>Categoria de Gastos:</label>  
+                  <label>Grudo de Despesas:</label>  
                   <select className="form-control" id="catgast" value={this.state.catgast} onChange={this.onChangeCatgast}>
-                    <option>1-Empenho de Despesa</option>
-                    <option>2-Reforço de Empenho</option>
-                    <option>3-Anulação da Nad</option>
-                    <option>4-Cancelamento</option>
+                    {Object.keys(optionsgrupodespesas).map((t,i) => <option key={i} value={t}>{optionsgrupodespesas[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-1">
@@ -676,26 +753,37 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-6">
                   <label>Unidade Gestora:</label>  
-                  <input id="unigest" name="unigest" className="form-control input-md" required="" type="text" value={this.state.unigest} onChange={this.onChangeUnigest}/>
+                  <select className="form-control" id="unigest" value={this.state.unigest} onChange={this.onChangeUnigest}>
+                    {Object.keys(optionsunidgestoras).map((t,i) => <option key={i} value={t}>{optionsunidgestoras[i].label}</option>)}
+                  </select>
                 </div>
                 <div className="col-sm-6">
                   <label>Unidade Orçamentaria:</label>  
-                  <input id="uniorc" name="uniorc" className="form-control input-md" required="" type="text" value={this.state.uniorc} onChange={this.onChangeUniorc}/>
+                  <select className="form-control" id="uniorc" value={this.state.uniorc} onChange={this.onChangeUniorc}>
+                    {Object.keys(optionsunidorcamentarias).map((t,i) => <option key={i} value={t}>{optionsunidorcamentarias[i].label}</option>)}
+                  </select>
                 </div>
               </div>
 
               <div className="form-row">
                 <div className="col-sm-4">
                   <label>Programa de Trabalho</label>  
-                  <input id="progtrab" name="progtrab" className="form-control input-md" required="" type="text" value={this.state.progtrab} onChange={this.onChangeProgtrab}/>
+                  <select className="form-control" id="progtrab" value={this.state.progtrab} onChange={this.onChangeProgtrab}>
+                    {Object.keys(optionsprogtrabalhos).map((t,i) => <option key={i} value={t}>{optionsprogtrabalhos[i].label}</option>)}
+                  </select>
                 </div>
                 <div className="col-sm-4">
                   <label>Natureza de Despesa</label>  
-                  <input id="natdesp" name="natdesp" className="form-control input-md" required="" type="text" value={this.state.natdesp} onChange={this.onChangeNatdesp}/>
+                  <select className="form-control" id="natdesp" value={this.state.natdesp} onChange={this.onChangeNatdesp}>
+                    {Object.keys(optionsnaturezadespesas).map((t,i) => <option key={i} value={t}>{optionsnaturezadespesas[i].label}</option>)}
+                  </select>
                 </div>
                 <div className="col-sm-4">
                   <label>Fonte de Recurso</label>  
                   <input id="fontrec" name="fontrec" className="form-control input-md" required="" type="text" value={this.state.fontrec} onChange={this.onChangeFontrec}/>
+                  <select className="form-control" id="fontrec" value={this.state.fonterec} onChange={this.onChangeFontrec}>
+                    {Object.keys(optionsfonterecursos).map((t,i) => <option key={i} value={t}>{optionsfonterecursos[i].label}</option>)}
+                  </select>
                 </div>
               </div>
 
@@ -703,9 +791,7 @@ export default class Edit extends Component {
                 <div className="col-sm-3">
                   <label>Tipo de Credito</label>  
                   <select className="form-control" id="tipcre" value={this.state.tipcre} onChange={this.onChangeTipcre}>
-                    <option>1-Orçamento Geral Suplementar</option>
-                    <option>2-Especial</option>
-                    <option>3-Extraordinario</option>
+                    {Object.keys(optionstipocreditos).map((t,i) => <option key={i} value={t}>{optionstipocreditos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-2">
@@ -726,7 +812,9 @@ export default class Edit extends Component {
                 <div className="col-sm-12">
                   <label>Nome do Favorecido:</label>  
                 </div>
-                  <input id="nomefav" name="nomefav" className="form-control input-md" required="" type="text" value={this.state.nomefav} onChange={this.onChangeNomefav} />
+                <select className="form-control" id="nomefav" value={this.state.nomefav} onChange={this.onChangeNomefav}>
+                    {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={t}>{optionsfavorecidos[i].label}</option>)}
+                </select>
               </div>
 
               <div className="form-row">
@@ -778,9 +866,7 @@ export default class Edit extends Component {
                 <div className="col-sm-2">
                   <label>Tipo de Empenho</label>  
                   <select className="form-control" id="tipemp" value={this.state.tipemp} onChange={this.onChangeTipemp}>
-                    <option>1-Ordinario</option>
-                    <option>2-Estimativo</option>
-                    <option>3-Global</option>
+                    {Object.keys(optionstipoempenhos).map((t,i) => <option key={i} value={t}>{optionstipoempenhos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-2">
@@ -863,7 +949,9 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-4">
                   <label>Tipo de Licitação</label>  
-                  <input id="tiplic" name="tiplic" className="form-control input-md" required="" type="text" value={this.state.tiplic} onChange={this.onChangeTiplic}/>
+                  <select className="form-control" id="tiplic" value={this.state.tiplic} onChange={this.onChangeTiplic}>
+                    {Object.keys(optionstipolicitacoes).map((t,i) => <option key={i} value={t}>{optionstipolicitacoes[i].label}</option>)}
+                  </select>
                 </div>
                 <div className="col-sm-4">
                   <label>Data de Abertura</label>  
@@ -944,8 +1032,8 @@ export default class Edit extends Component {
                       <input type="submit" value="Salvar" className="btn btn-primary"/>
                   </div>
                   <div className="col-sm-1">
-                      {/*<button onClick={() => window.print()} className="btn btn-primary">Imprimir</button>
-                        <button onClick={this.PrintDiv('NAD')} className="btn btn-primary">Imprimir</button> 
+                      <button onClick={() => window.print()} className="btn btn-primary">Imprimir</button>
+                      {/*  <button onClick={this.PrintDiv('NAD')} className="btn btn-primary">Imprimir</button> 
                       */}
                   </div> 
               </div>

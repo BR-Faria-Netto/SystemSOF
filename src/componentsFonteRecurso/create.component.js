@@ -69,7 +69,7 @@ export default class Create extends Component {
                       />
                 </div>
                 <div className="form-group">
-                    <label>Descricao: </label>
+                    <label>Descrição: </label>
                     <input type="text" 
                       className="form-control"
                       value={this.state.descricao}

@@ -62,7 +62,7 @@ export default class Edit extends Component {
                 </div>
                 <div className="form-group">
                     <div className="col-sm-6">
-                    <label>Descricao: </label>
+                    <label>Descrição: </label>
                       <input type="text" className="form-control" value={this.state.descricao} onChange={this.onChangeDescricao}/>
                     </div>
                 </div>

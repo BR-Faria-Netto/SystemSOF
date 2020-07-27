@@ -15,7 +15,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get('http://localhost:4000/tipoeventos/edit/'+this.props.match.params.id)
+      axios.get('http://localhost:4000/grupodespesas/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 codigo: response.data.codigo, 
@@ -43,16 +43,16 @@ export default class Edit extends Component {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
-    axios.post('http://localhost:4000/tipoeventos/update/'+this.props.match.params.id, obj)
+    axios.post('http://localhost:4000/grupodespesas/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
-    this.props.history.push('/indexTipoEvento');
+    this.props.history.push('/indexGrupoDespesa');
   }
  
   render() {
     return (
         <div style={{ marginTop: 10 }}>
-            <h3 align="center">Alteração do Tipo de Evento</h3>
+            <h3 align="center">Alteração do Grupo de Despesa</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <div className="col-sm-6">

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Select from 'react-select';
-
-var optionsTipos = [];
 
 export default class Create extends Component {
   constructor(props) {
@@ -10,13 +7,6 @@ export default class Create extends Component {
     this.onChangeCodigo = this.onChangeCodigo.bind(this);
     this.onChangeDescricao = this.onChangeDescricao.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    
-    axios.get('http://localhost:4000/tipos').then(resp => {
-         Object.entries(resp.data).forEach(entry => {
-           const [key, value] = entry;
-           optionsTipos.push({ value: (key, value._id), label: (key, value.descricao )});
-         });
-    });
 
     this.state = {
       codigo: '',
@@ -42,7 +32,7 @@ export default class Create extends Component {
       descricao: this.state.descricao
     };
 
-    axios.post('http://localhost:4000/tipos/add', obj)
+    axios.post('http://localhost:4000/unidgestoras/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({
@@ -50,7 +40,7 @@ export default class Create extends Component {
       descricao: ''
     })
 
-    this.props.history.push('/indexTipo');
+    this.props.history.push('/indexUnidGestora');
   
   }
 
@@ -67,7 +57,7 @@ export default class Create extends Component {
     
     return (
         <div style={{ marginTop: 10 }}>
-            <h3 align="center">Add New Tipo</h3>
+            <h3 align="center">Inclusão de Unidade Gestora</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label>Codigo:  </label>
@@ -85,18 +75,6 @@ export default class Create extends Component {
                       value={this.state.descricao}
                       onChange={this.onChangeDescricao}
                       />
-                </div>
-
-                {/* <select className="form-control"
-                    multiple={this.props.multiple}
-                    name={this.props.name}
-                    value={this.props.value}
-                    disabled={this.props.disabled}
-                    ref={this.ref_input}>
-                </select>
- */}
-                <div>
-                   <Select options={optionsTipos} />
                 </div>
 
                 <div className="form-group">

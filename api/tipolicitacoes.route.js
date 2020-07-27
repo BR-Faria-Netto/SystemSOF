@@ -2,12 +2,12 @@
 // business.route.js
 const express = require('express');
 
-const tipoeventosRoute = express.Router();
+const tipolicitacoesRoute = express.Router();
 // Require Business model in our routes module
-let baseServer = require('./tipoeventos.model');
+let baseServer = require('./tipolicitacoes.model');
 
 // Defined store route
-tipoeventosRoute.route('/add').post(function (req, res) {
+tipolicitacoesRoute.route('/add').post(function (req, res) {
   let baseLocal = new baseServer(req.body);
   baseLocal.save()
     .then(baseLocal => {
@@ -19,7 +19,7 @@ tipoeventosRoute.route('/add').post(function (req, res) {
 });
 
 // Defined get data(index or listing) route
-tipoeventosRoute.route('/').get(function (req, res) {
+tipolicitacoesRoute.route('/').get(function (req, res) {
     baseServer.find(function(err, baseLocal){
     if(err){
       console.log(err);
@@ -31,7 +31,7 @@ tipoeventosRoute.route('/').get(function (req, res) {
 });
 
 // Defined edit route
-tipoeventosRoute.route('/edit/:id').get(function (req, res) {
+tipolicitacoesRoute.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
   baseServer.findById(id, function (err, baseLocal){
       res.json(baseLocal);
@@ -39,7 +39,7 @@ tipoeventosRoute.route('/edit/:id').get(function (req, res) {
 });
 
 //  Defined update route
-tipoeventosRoute.route('/update/:id').post(function (req, res) {
+tipolicitacoesRoute.route('/update/:id').post(function (req, res) {
     baseServer.findById(req.params.id, function(err, baseLocal) {
     if (!baseLocal)
       res.status(404).send("data is not found");
@@ -57,11 +57,11 @@ tipoeventosRoute.route('/update/:id').post(function (req, res) {
 });
 
 // Defined delete | remove | destroy route
-tipoeventosRoute.route('/delete/:id').get(function (req, res) {
+tipolicitacoesRoute.route('/delete/:id').get(function (req, res) {
     baseServer.findByIdAndRemove({_id: req.params.id}, function(err, baseLocal){
         if(err) res.json(err);
         else res.json('Successfully removed');
     });
 });
 
-module.exports = tipoeventosRoute;
+module.exports = tipolicitacoesRoute;

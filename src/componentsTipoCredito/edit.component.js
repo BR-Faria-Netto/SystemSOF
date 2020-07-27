@@ -15,7 +15,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get('http://localhost:4000/tipos/edit/'+this.props.match.params.id)
+      axios.get('http://localhost:4000/tipocreditos/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 codigo: response.data.codigo, 
@@ -43,10 +43,10 @@ export default class Edit extends Component {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
-    axios.post('http://localhost:4000/tipos/update/'+this.props.match.params.id, obj)
+    axios.post('http://localhost:4000/tipocreditos/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
-    this.props.history.push('/indexTipo');
+    this.props.history.push('/indexTipoCredito');
   }
  
   render() {
@@ -62,7 +62,7 @@ export default class Edit extends Component {
                 </div>
                 <div className="form-group">
                     <div className="col-sm-6">
-                    <label>Descricao: </label>
+                    <label>Descrição: </label>
                       <input type="text" className="form-control" value={this.state.descricao} onChange={this.onChangeDescricao}/>
                     </div>
                 </div>

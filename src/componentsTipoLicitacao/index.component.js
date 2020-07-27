@@ -10,7 +10,7 @@ export default class Index extends Component {
       this.state = {tipo: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/tipos')
+      axios.get('http://localhost:4000/tipolicitacoes')
         .then(response => {
           this.setState({ tipo: response.data });
         })
@@ -26,7 +26,7 @@ export default class Index extends Component {
 
     render() {
 
-      axios.get('http://localhost:4000/tipos')
+      axios.get('http://localhost:4000/tipolicitacoes')
       .then(response => {
         this.setState({ tipo: response.data });
       })
@@ -36,14 +36,14 @@ export default class Index extends Component {
 
       return (
         <div>
-          <h3 align="center">Tipo de Credito</h3>
+          <h3 align="center">Relação de Tipo de Licitação</h3>
           <table className="table table-hover"> 
             <thead>
               <tr>
                 <th>Codigo</th>
                 <th>Descrição</th>
                 <th>Opções:</th>
-                <th><Link to={'/createTipo'} class="btn btn-sm btn-primary">Incluir</Link></th>
+                <th><Link to={'/createTipoLicitacao'} class="btn btn-sm btn-primary">Incluir</Link></th>
               </tr>
             </thead>
             <tbody>
