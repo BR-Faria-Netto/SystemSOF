@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
+
+const httpLocal =  serverapi.name;
 
 var optionstipoeventos = [];
-axios.get('http://localhost:4000/tipoeventos').then(resp => {
+axios.get(httpLocal + 'tipoeventos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionstipoeventos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionstipoeventos.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsgrupodespesas = [];
-axios.get('http://localhost:4000/grupodespesas').then(resp => {
+axios.get(httpLocal + 'grupodespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsgrupodespesas.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -18,7 +21,7 @@ axios.get('http://localhost:4000/grupodespesas').then(resp => {
 });
 
 var optionsunidgestoras = [];
-axios.get('http://localhost:4000/unidgestoras').then(resp => {
+axios.get(httpLocal + 'unidgestoras').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsunidgestoras.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -26,7 +29,7 @@ axios.get('http://localhost:4000/unidgestoras').then(resp => {
 });
 
 var optionsunidorcamentarias = [];
-axios.get('http://localhost:4000/unidorcamentarias').then(resp => {
+axios.get(httpLocal + 'unidorcamentarias').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsunidorcamentarias.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -34,7 +37,7 @@ axios.get('http://localhost:4000/unidorcamentarias').then(resp => {
 });
 
 var optionsprogtrabalhos = [];
-axios.get('http://localhost:4000/progtrabalhos').then(resp => {
+axios.get(httpLocal + 'progtrabalhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsprogtrabalhos.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -42,7 +45,7 @@ axios.get('http://localhost:4000/progtrabalhos').then(resp => {
 });
 
 var optionsnaturezadespesas = [];
-axios.get('http://localhost:4000/naturezadespesas').then(resp => {
+axios.get(httpLocal + 'naturezadespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsnaturezadespesas.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -50,7 +53,7 @@ axios.get('http://localhost:4000/naturezadespesas').then(resp => {
 });
 
 var optionsfonterecursos = [];
-axios.get('http://localhost:4000/fonterecursos').then(resp => {
+axios.get(httpLocal + 'fonterecursos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsfonterecursos.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -58,7 +61,7 @@ axios.get('http://localhost:4000/fonterecursos').then(resp => {
 });
 
 var optionsfavorecidos = [];
-axios.get('http://localhost:4000/favorecidos').then(resp => {
+axios.get(httpLocal + 'favorecidos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsfavorecidos.push({ value: (key, value.nomefav), label: (key, value.nomefav )});
@@ -67,7 +70,7 @@ axios.get('http://localhost:4000/favorecidos').then(resp => {
 });
 
 var optionstipocreditos = [];
-axios.get('http://localhost:4000/tipocreditos').then(resp => {
+axios.get(httpLocal + 'tipocreditos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipocreditos.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -75,7 +78,7 @@ axios.get('http://localhost:4000/tipocreditos').then(resp => {
 });
 
 var optionstipoempenhos = [];
-axios.get('http://localhost:4000/tipoempenhos').then(resp => {
+axios.get(httpLocal + 'tipoempenhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipoempenhos.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -83,7 +86,7 @@ axios.get('http://localhost:4000/tipoempenhos').then(resp => {
 });
 
 var optionstipolicitacoes = [];
-axios.get('http://localhost:4000/tipolicitacoes').then(resp => {
+axios.get(httpLocal + 'tipolicitacoes').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipolicitacoes.push({ value: (key, value._id), label: (key, value.descricao )});
@@ -219,7 +222,7 @@ export default class Edit extends Component {
   }
   
   componentDidMount() {
-      axios.get('http://localhost:4000/nads/edit/'+this.props.match.params.id)
+      axios.get(httpLocal + 'nads/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 numnad : response.data.numnad,
@@ -696,7 +699,7 @@ export default class Edit extends Component {
       matrat : this.state.matrat,
       datarat : this.state.datarat 
     };
-    axios.post('http://localhost:4000/nads/update/'+this.props.match.params.id, obj)
+    axios.post(httpLocal + 'nads/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
     this.props.history.push('/indexNad');
@@ -729,7 +732,7 @@ export default class Edit extends Component {
                 <div className="col-sm-4">
                   <label>Evento da Nad:</label>  
                   <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad} >
-                    {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={t}>{optionstipoeventos[i].label}</option>)}
+                    {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={optionstipoeventos[i].label}>{optionstipoeventos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-4">
@@ -813,7 +816,7 @@ export default class Edit extends Component {
                   <label>Nome do Favorecido:</label>  
                 </div>
                 <select className="form-control" id="nomefav" value={this.state.nomefav} onChange={this.onChangeNomefav}>
-                    {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={t}>{optionsfavorecidos[i].label}</option>)}
+                    {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={optionsfavorecidos[i].label}>{optionsfavorecidos[i].label}</option>)}
                 </select>
               </div>
 

@@ -59,8 +59,8 @@ class App extends Component {
     return (
       <Router>
 
-        <div className="container">
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <div className="container" style={{ marginTop: 10, border: '1px solid red', maxWidth: '3100px', minheight: '100%'}}>
+              <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Home</Navbar.Brand>
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav.Link href="/indexNad">Nad</Nav.Link>
@@ -138,6 +138,8 @@ class App extends Component {
 
             </Switch>
         </div>
+
+
       </Router>
       
     );

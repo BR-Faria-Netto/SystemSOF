@@ -37,7 +37,7 @@ export default class Index extends Component {
       return (
         <div>
           <h3 align="center">Relação de Grupo de Despesas</h3>
-          <table className="table table-hover"> 
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th>Codigo</th>

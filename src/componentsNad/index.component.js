@@ -3,6 +3,10 @@ import axios from 'axios';
 import TableRow from './TableRow';
 import { Link } from 'react-router-dom';
 
+import serverapi from '../serverapi';
+
+const httpLocal =  serverapi.name;
+
 export default class Index extends Component {
 
   constructor(props) {
@@ -10,7 +14,7 @@ export default class Index extends Component {
       this.state = {nads: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/nads')
+      axios.get(httpLocal + 'nads')
         .then(response => {
           this.setState({ nads: response.data });
         })
@@ -26,7 +30,7 @@ export default class Index extends Component {
 
     render() {
 
-      axios.get('http://localhost:4000/nads')
+      axios.get(httpLocal + 'nads')
       .then(response => {
         this.setState({ nads: response.data });
       })
@@ -37,7 +41,7 @@ export default class Index extends Component {
       return (
         <div>
           <h3 align="center">Nads Emitidas</h3>
-          <table className="table table-hover" style={{ marginTop: 20}}> 
+          <table className="table table-hover" style={{ marginTop: 20, border:2}}> 
             <thead>
               <tr>
                 <th>Numero</th>

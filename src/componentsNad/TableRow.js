@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import serverapi from '../serverapi';
+
+const httpLocal =  serverapi.name;
+
 class TableRow extends React.Component {
 
   constructor(props) {
@@ -9,7 +13,7 @@ class TableRow extends React.Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.get('http://localhost:4000/nads/delete/'+this.props.obj._id)
+        axios.get(httpLocal+'nads/delete/'+this.props.obj._id)
             .then(console.log('Deleted'))
             .catch(err => console.log(err))
     }

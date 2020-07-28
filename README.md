@@ -1,12 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+Init mongodb start configuration directory
+### `mongod.exe --dbpath c:\mogodb\data` example 
 
 In the project directory, you can run:
+cd api
 
+Runs the app serser API
+### `npm install` modules needed
+Initial first install npm modules  
+
+After process
 ### `npm start`
 
-Runs the app in the development mode.<br>
+Runs the app aplication 
+
+Initial first
+### `npm install` modules needed
+
+After process
+### `npm start`
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
