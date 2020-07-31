@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 export default class Create extends Component {
   constructor(props) {
@@ -534,7 +535,7 @@ export default class Create extends Component {
       matrat : this.state.matrat,
       datarat : this.state.datarat 
     };
-    axios.post('http://localhost:4000/nads/add', obj)
+    axios.post(serverapi.name+'nads/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({

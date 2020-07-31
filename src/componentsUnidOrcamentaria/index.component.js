@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TableRow from './TableRow';
 import { Link } from 'react-router-dom';
+import serverapi from '../serverapi';
 
 export default class Index extends Component {
 
@@ -10,7 +11,7 @@ export default class Index extends Component {
       this.state = {tipo: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/unidorcamentarias')
+      axios.get(serverapi.name+'unidorcamentarias')
         .then(response => {
           this.setState({ tipo: response.data });
         })
@@ -26,7 +27,7 @@ export default class Index extends Component {
 
     render() {
 
-      axios.get('http://localhost:4000/unidorcamentarias')
+      axios.get(serverapi.name+'unidorcamentarias')
       .then(response => {
         this.setState({ tipo: response.data });
       })

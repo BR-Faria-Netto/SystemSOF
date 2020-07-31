@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import serverapi from '../serverapi';
 
-const httpLocal =  serverapi.name;
-
 var optionstipoeventos = [];
-axios.get(httpLocal+'tipoeventos').then(resp => {
+axios.get(serverapi.name+'tipoeventos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipoeventos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -13,83 +11,83 @@ axios.get(httpLocal+'tipoeventos').then(resp => {
 });
 
 var optionsgrupodespesas = [];
-axios.get(httpLocal + 'grupodespesas').then(resp => {
+axios.get(serverapi.name + 'grupodespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsgrupodespesas.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsgrupodespesas.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsunidgestoras = [];
-axios.get(httpLocal + 'unidgestoras').then(resp => {
+axios.get(serverapi.name + 'unidgestoras').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsunidgestoras.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsunidgestoras.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsunidorcamentarias = [];
-axios.get(httpLocal + 'unidorcamentarias').then(resp => {
+axios.get(serverapi.name + 'unidorcamentarias').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsunidorcamentarias.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsunidorcamentarias.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsprogtrabalhos = [];
-axios.get(httpLocal + 'progtrabalhos').then(resp => {
+axios.get(serverapi.name + 'progtrabalhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsprogtrabalhos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsprogtrabalhos.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsnaturezadespesas = [];
-axios.get(httpLocal + 'naturezadespesas').then(resp => {
+axios.get(serverapi.name + 'naturezadespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsnaturezadespesas.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsnaturezadespesas.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsfonterecursos = [];
-axios.get(httpLocal + 'fonterecursos').then(resp => {
+axios.get(serverapi.name + 'fonterecursos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionsfonterecursos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionsfonterecursos.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionsfavorecidos = [];
-axios.get(httpLocal + 'favorecidos').then(resp => {
+axios.get(serverapi.name + 'favorecidos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsfavorecidos.push({ value: (key, value.nomefav), label: (key, value.nomefav )});
-    //optionsfavorecidos.push({ value: (key, value._id), label: (key, value.nomefav )});
+    //optionsfavorecidos.push({ value: (key, value.descricao), label: (key, value.nomefav )});
   });
 });
 
 var optionstipocreditos = [];
-axios.get(httpLocal + 'tipocreditos').then(resp => {
+axios.get(serverapi.name + 'tipocreditos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionstipocreditos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionstipocreditos.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionstipoempenhos = [];
-axios.get(httpLocal + 'tipoempenhos').then(resp => {
+axios.get(serverapi.name + 'tipoempenhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionstipoempenhos.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionstipoempenhos.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
 var optionstipolicitacoes = [];
-axios.get(httpLocal + 'tipolicitacoes').then(resp => {
+axios.get(serverapi.name + 'tipolicitacoes').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
-    optionstipolicitacoes.push({ value: (key, value._id), label: (key, value.descricao )});
+    optionstipolicitacoes.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
@@ -626,7 +624,7 @@ export default class Create extends Component {
       matrat : this.state.matrat,
       datarat : this.state.datarat 
     };
-    axios.post(httpLocal + 'nads/add', obj)
+    axios.post(serverapi.name + 'nads/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({

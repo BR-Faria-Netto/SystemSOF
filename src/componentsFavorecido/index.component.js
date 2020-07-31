@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TableRow from './TableRow';
 import { Link } from 'react-router-dom';
+import serverapi from '../serverapi';
 
 export default class Index extends Component {
 
@@ -10,7 +11,7 @@ export default class Index extends Component {
       this.state = {favorecidos: []};
     }
     componentDidMount(){
-      axios.get('http://localhost:4000/favorecidos')
+      axios.get(serverapi.name+'favorecidos')
         .then(response => {
           this.setState({ favorecidos: response.data });
         })
@@ -26,7 +27,7 @@ export default class Index extends Component {
 
     render() {
 
-      axios.get('http://localhost:4000/favorecidos')
+      axios.get(serverapi.name+'favorecidos')
       .then(response => {
         this.setState({ favorecidos: response.data });
       })
@@ -36,7 +37,7 @@ export default class Index extends Component {
 
       return (
         <div>
-          <h3 align="center">Favorecido</h3>
+          <h3 align="center">Relação de Favorecidos</h3>
           <table className="table table-hover" style={{ marginTop: 20}}> 
             <thead>
               <tr>

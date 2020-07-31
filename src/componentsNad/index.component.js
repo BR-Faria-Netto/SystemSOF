@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 import serverapi from '../serverapi';
 
-const httpLocal =  serverapi.name;
-
 export default class Index extends Component {
 
   constructor(props) {
@@ -14,7 +12,7 @@ export default class Index extends Component {
       this.state = {nads: []};
     }
     componentDidMount(){
-      axios.get(httpLocal + 'nads')
+      axios.get(serverapi.name + 'nads')
         .then(response => {
           this.setState({ nads: response.data });
         })
@@ -30,7 +28,7 @@ export default class Index extends Component {
 
     render() {
 
-      axios.get(httpLocal + 'nads')
+      axios.get(serverapi.name + 'nads')
       .then(response => {
         this.setState({ nads: response.data });
       })
@@ -40,7 +38,7 @@ export default class Index extends Component {
 
       return (
         <div>
-          <h3 align="center">Nads Emitidas</h3>
+          <h3 align="center">Relação de Autorização de Despesa</h3>
           <table className="table table-hover" style={{ marginTop: 20, border:2}}> 
             <thead>
               <tr>

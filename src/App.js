@@ -59,11 +59,11 @@ class App extends Component {
     return (
       <Router>
 
-        <div className="container" style={{ marginTop: 10, border: '1px solid red', maxWidth: '3100px', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 10, border: '1px solid red', maxWidth: '100%', minheight: '100%'}}>
               <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
               <Navbar.Brand href="/">Home</Navbar.Brand>
               <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav.Link href="/indexNad">Nad</Nav.Link>
+                <Nav.Link href="/indexNad">Autorização</Nav.Link>
                 <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
                 <Nav className="mr-auto">
                   <NavDropdown title="Cadastro" id="collasible-nav-dropdown">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 export default class Edit extends Component {
 
@@ -34,7 +35,7 @@ export default class Edit extends Component {
   }
   
   componentDidMount() {
-      axios.get('http://localhost:4000/favorecidos/edit/'+this.props.match.params.id)
+      axios.get(serverapi.name+'favorecidos/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 nomefav : response.data.nomefav,
@@ -129,7 +130,7 @@ export default class Edit extends Component {
       agerec : this.state.agerec,
       ccrec : this.state.ccrec
     };
-    axios.post('http://localhost:4000/favorecidos/update/'+this.props.match.params.id, obj)
+    axios.post(serverapi.name+'favorecidos/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
     this.props.history.push('/indexFavorecido');

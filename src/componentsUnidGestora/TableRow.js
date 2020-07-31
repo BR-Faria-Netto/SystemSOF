@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 class TableRow extends React.Component {
 
@@ -9,7 +10,7 @@ class TableRow extends React.Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.get('http://localhost:4000/unidgestoras/delete/'+this.props.obj._id)
+        axios.get(serverapi.name+'unidgestoras/delete/'+this.props.obj._id)
             .then(console.log('Deleted'))
             .catch(err => console.log(err))
     }

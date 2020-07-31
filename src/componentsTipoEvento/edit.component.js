@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 export default class Edit extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get('http://localhost:4000/tipoeventos/edit/'+this.props.match.params.id)
+      axios.get(serverapi.name+'tipoeventos/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 codigo: response.data.codigo, 
@@ -43,7 +44,7 @@ export default class Edit extends Component {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
-    axios.post('http://localhost:4000/tipoeventos/update/'+this.props.match.params.id, obj)
+    axios.post(serverapi.name+'tipoeventos/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
     this.props.history.push('/indexTipoEvento');

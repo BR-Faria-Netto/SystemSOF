@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 export default class Create extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class Create extends Component {
       descricao: this.state.descricao
     };
 
-    axios.post('http://localhost:4000/grupodespesas/add', obj)
+    axios.post(serverapi.name+'grupodespesas/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({

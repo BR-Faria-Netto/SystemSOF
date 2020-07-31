@@ -2,13 +2,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 Init mongodb start configuration directory
-### `mongod.exe --dbpath c:\mogodb\data` example 
+### `mongod.exe --dbpath c:\mogodb\data example` 
 
 In the project directory, you can run:
 cd api
 
 Runs the app serser API
-### `npm install` modules needed
+### `npm install modules needed` 
 Initial first install npm modules  
 
 After process
@@ -17,7 +17,7 @@ After process
 Runs the app aplication 
 
 Initial first
-### `npm install` modules needed
+### `npm install modules needed` 
 
 After process
 ### `npm start`

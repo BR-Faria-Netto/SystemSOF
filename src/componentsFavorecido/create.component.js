@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import serverapi from '../serverapi';
 
 export default class Create extends Component {
   constructor(props) {
@@ -104,7 +105,7 @@ export default class Create extends Component {
       agerec : this.state.agerec,
       ccrec : this.state.ccrec
     };
-    axios.post('http://localhost:4000/favorecidos/add', obj)
+    axios.post(serverapi.name+'favorecidos/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({
