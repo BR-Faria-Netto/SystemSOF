@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
 
+const tablecodeRoute = require('./tableCode.route');
 const favorecidosRoute = require('./favorecidos.route');
 const tipoeventosRoute = require('./tipoeventos.route');
 const fonterecursosRoute = require('./fonterecursos.route');
@@ -32,9 +33,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.use('/tablecode', tablecodeRoute);
+
 app.use('/favorecidos', favorecidosRoute);
 app.use('/tipoeventos', tipoeventosRoute);
 app.use('/tipocreditos', tipocreditosRoute);
+
 app.use('/tipocreditos', tipocreditosRoute);
 app.use('/fonterecursos', fonterecursosRoute);
 app.use('/naturezadespesas', naturezadespesasRoute);

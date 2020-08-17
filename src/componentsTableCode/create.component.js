@@ -33,7 +33,7 @@ export default class Create extends Component {
       descricao: this.state.descricao
     };
 
-    axios.post(serverapi.name+'naturezadespesas/add', obj)
+    axios.post(serverapi.name+'tablecode/add/'+this.props.match.params.dbTable, obj)
         .then(res => console.log(res.data));
     
     this.setState({
@@ -41,7 +41,7 @@ export default class Create extends Component {
       descricao: ''
     })
 
-    this.props.history.push('/indexNaturezaDespesa');
+    this.props.history.push('/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle);
   
   }
 
@@ -57,27 +57,22 @@ export default class Create extends Component {
 
     
     return (
-        <div style={{ marginTop: 10 }}>
-            <h3 align="center">Inclusão da Natureza de Despesa</h3>
-            <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                    <label>Codigo:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.codigo}
-                      onChange={this.onChangeCodigo}
-                      />
+      <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <h3 align="center">Inclusão de {this.props.match.params.pgTitle}</h3>
+        <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                    <div className="col-sm-1">
+                      <label>Codigo:  </label>
+                      <input type="text" className="form-control" value={this.state.codigo} onChange={this.onChangeCodigo}/>
+                    </div>
                 </div>
                 <div className="form-group">
+                    <div className="col-sm-6">
                     <label>Descrição: </label>
-                    <input type="text" 
-                      className="form-control"
-                      value={this.state.descricao}
-                      onChange={this.onChangeDescricao}
-                      />
+                      <input type="text" className="form-control" value={this.state.descricao} onChange={this.onChangeDescricao}/>
+                    </div>
                 </div>
-
+      
                 <div className="form-group">
                     <input type="submit" 
                       value="Salvar" 

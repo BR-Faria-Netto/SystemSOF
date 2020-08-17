@@ -8,7 +8,6 @@ export default class Edit extends Component {
     this.onChangeCodigo = this.onChangeCodigo.bind(this);
     this.onChangeDescricao = this.onChangeDescricao.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
       codigo: '',
       descricao: ''
@@ -16,7 +15,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get(serverapi.name+'grupodespesas/edit/'+this.props.match.params.id)
+      axios.get(serverapi.name+'tableCode/edit/'+this.props.match.params.dbTable+'/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 codigo: response.data.codigo, 
@@ -38,25 +37,28 @@ export default class Edit extends Component {
     })  
   }
     
+
   onSubmit(e) {
     e.preventDefault();
     const obj = {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
-    axios.post(serverapi.name+'grupodespesas/update/'+this.props.match.params.id, obj)
+    axios.post(serverapi.name+'tablecode/update/'+this.props.match.params.dbTable+'/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
-    this.props.history.push('/indexGrupoDespesa');
+    this.props.history.push('/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle);
   }
  
   render() {
+
     return (
-        <div style={{ marginTop: 10 }}>
-            <h3 align="center">Alteração do Grupo de Despesa</h3>
-            <form onSubmit={this.onSubmit}>
+
+      <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <h3 align="center">Alteração de {this.props.match.params.pgTitle}</h3>
+        <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <div className="col-sm-6">
+                    <div className="col-sm-1">
                       <label>Codigo:  </label>
                       <input type="text" className="form-control" value={this.state.codigo} onChange={this.onChangeCodigo}/>
                     </div>
@@ -72,6 +74,7 @@ export default class Edit extends Component {
                     <input type="submit" 
                       value="Salvar" 
                       className="btn btn-primary"/>
+
                 </div>
             </form>
         </div>
