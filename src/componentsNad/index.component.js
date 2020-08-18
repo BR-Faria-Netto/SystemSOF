@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import * as Icon from 'react-bootstrap-icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -24,7 +27,7 @@ export default class Index extends Component {
         this.setState({ nads: response.data });
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error("Ocorrou erro de conecxão com o servidor!")
       })
     }
 
@@ -63,6 +66,8 @@ export default class Index extends Component {
           dataField: 'valor',
           text: 'Valor',
           filter: textFilter(),
+          headerAlign: 'right',
+          attrs: { align: 'right' }
         },
         {
           dataField: 'evenad',
@@ -146,6 +151,7 @@ export default class Index extends Component {
       return (
         <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <div className="form-row">
+                <ToastContainer />
                 <div className="col-sm-11">
                   <h3 align="center">Autorização de Despesa</h3>
                 </div>

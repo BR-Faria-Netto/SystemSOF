@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import serverapi from '../serverapi';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
+
 
 var optionstipoeventos = [];
 axios.get(serverapi.name + 'tipoeventos').then(resp => {
@@ -721,37 +726,37 @@ export default class Edit extends Component {
       matrat : this.state.matrat,
       datarat : this.state.datarat 
     };
+
     axios.post(serverapi.name + 'nads/update/'+this.props.match.params.id, obj)
-        .then(res => console.log(res.data));
-    
+    .then(res => {toast.success("Registro foi salvo com successo");})
+    .catch(error => {toast.error("Ocorrou erro ao salvar o registro");})
+
     this.props.history.push('/indexNad');
   
   }
 
-
   render() {
 
     function print(data) {
-
-
         var myWindow = window.open('', 'Impressora');
         myWindow.document.write('<html><head><title>Impressão de NAD</title>');
         myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
         myWindow.document.write('</head><body >');
         myWindow.document.write(document.querySelector(data).innerHTML);
         myWindow.document.write('</body></html>');
-        myWindow.document.close(); // necessary for IE >= 10
+        myWindow.document.close(); 
       
-        myWindow.onload=function(){ // necessary if the div contain images
-
-            myWindow.focus(); // necessary for IE >= 10
-            myWindow.print();
-            myWindow.close();
+        myWindow.onload=function(){
+          myWindow.focus();
+          myWindow.print();
+          myWindow.close();
         };
+        
     }
 
     return (
-        <div style={{ marginTop: 10 }}>
+  
+        <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <form onSubmit={this.onSubmit}>
               <div id='nad'>
                 <div className="form-row">
@@ -785,25 +790,26 @@ export default class Edit extends Component {
                     </select>
                   </div>
                   <div className="col-sm-1">
-                      <label>Adiantamento:</label>  
-                      <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Sim'} onChange={this.onChangeAdant}/>Sim
-                      <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Não'} onChange={this.onChangeAdant}/>Não
-                    </div>    
+                      <label>Adiantamento</label>  
+                      <select className="form-control" id="adant" value={this.state.adant} onChange={this.onChangeAdant}>
+                          <option>Sim</option>
+                          <option>Não</option>
+                      </select>
+                  </div>    
                 </div>
-
                 <div className="form-row">
                   <div className="col-sm-4">
-                    <label>Secretaria:</label>  
+                    <label>Secretaria</label>  
                     <input id="secret" name="secret" className="form-control input-md" type="text" value={this.state.secret} onChange={this.onChangeSecret} />
                   </div>
                   <div className="col-sm-4">
-                    <label>Unidade Gestora:</label>  
+                    <label>Unidade Gestora</label>  
                     <select className="form-control" id="unigest" value={this.state.unigest} onChange={this.onChangeUnigest}>
                       {Object.keys(optionsunidgestoras).map((t,i) => <option key={i} value={optionsunidgestoras[i].label}>{optionsunidgestoras[i].label}</option>)}
                     </select>
                   </div>
                   <div className="col-sm-4">
-                    <label>Unidade Orçamentaria:</label>  
+                    <label>Unidade Orçamentaria</label>  
                     <select className="form-control" id="uniorc" value={this.state.uniorc} onChange={this.onChangeUniorc}>
                       {Object.keys(optionsunidorcamentarias).map((t,i) => <option key={i} value={optionsunidorcamentarias[i].label}>{optionsunidorcamentarias[i].label}</option>)}
                     </select>
@@ -825,7 +831,7 @@ export default class Edit extends Component {
                   </div>
                   <div className="col-sm-4">
                     <label>Fonte de Recurso</label>  
-                    <select className="form-control" id="fontrec" value={this.state.fonterec} onChange={this.onChangeFontrec}>
+                    <select className="form-control" id="fontrec" value={this.state.fontrec} onChange={this.onChangeFontrec}>
                       {Object.keys(optionsfonterecursos).map((t,i) => <option key={i} value={optionsfonterecursos[i].label}>{optionsfonterecursos[i].label}</option>)}
                     </select>
                   </div>
@@ -1072,8 +1078,10 @@ export default class Edit extends Component {
                 </div>
               </div>
               <hr></hr>
+              
               <div className="form-row">
                   <div className="col-sm-1">
+                      <ToastContainer />
                       <input type="submit" value="Salvar" className="btn btn-primary"/>
                   </div>
                   <div className="col-sm-1">

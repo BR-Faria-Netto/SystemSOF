@@ -657,12 +657,8 @@ export default class Create extends Component {
     };
 
     axios.post(serverapi.name + 'nads/add', obj)
-        .then(res => {
-        toast.success("Registro foi saldo com successo");
-    })
-    .catch(error => {
-        toast.error("Ocorrou erro ao salvar o registro");
-    })
+    .then(res => {toast.success("Registro foi salvo com successo");})
+    .catch(error => {toast.error("Ocorrou erro ao salvar o registro");})
 
     this.props.history.push('/indexNad');
 
@@ -677,17 +673,17 @@ export default class Create extends Component {
        myWindow.document.write('</head><body >');
        myWindow.document.write(document.querySelector(data).innerHTML);
        myWindow.document.write('</body></html>');
-       myWindow.document.close(); // necessary for IE >= 10
-       myWindow.onload=function(){ // necessary if the div contain images
-           myWindow.focus(); // necessary for IE >= 10
-           myWindow.print();
-           myWindow.close();
+       myWindow.document.close(); 
+       myWindow.onload=function(){
+          myWindow.focus(); 
+          myWindow.print();
+          myWindow.close();
        };
      }
 
     return (
-      <div style={{ marginTop: 10 }}>
-          <form onSubmit={this.onSubmit}>
+      <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+         <form onSubmit={this.onSubmit}>
             <div id='nad'>
               <div className="form-row">
                 <div className="col-sm-6">
@@ -708,37 +704,39 @@ export default class Create extends Component {
               </div>
               <div className="form-row">
                 <div className="col-sm-4">
-                  <label>Evento da Nad:</label>  
+                  <label>Evento da Nad</label>  
                   <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad} >
                     {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={optionstipoeventos[i].label}>{optionstipoeventos[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <label>Grudo de Despesas:</label>  
+                  <label>Grudo de Despesas</label>  
                   <select className="form-control" id="catgast" value={this.state.catgast} onChange={this.onChangeCatgast}>
                     {Object.keys(optionsgrupodespesas).map((t,i) => <option key={i} value={optionsgrupodespesas[i].label}>{optionsgrupodespesas[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-1">
-                    <label>Adiantamento:</label>  
-                    <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Sim'} onChange={this.onChangeAdant}/>Sim
-                    <input type="radio" value={this.state.adant} checked={this.state.selectedOption === 'Não'} onChange={this.onChangeAdant}/>Não
-                  </div>    
+                    <label>Adiantamento</label>  
+                    <select className="form-control" id="adant" value={this.state.adant} onChange={this.onChangeAdant}>
+                          <option>Sim</option>
+                          <option>Não</option>
+                      </select>
+                </div>    
               </div>
 
               <div className="form-row">
                 <div className="col-sm-4">
-                  <label>Secretaria:</label>  
+                  <label>Secretaria</label>  
                   <input id="secret" name="secret" className="form-control input-md" type="text" value={this.state.secret} onChange={this.onChangeSecret} />
                 </div>
                 <div className="col-sm-4">
-                  <label>Unidade Gestora:</label>  
+                  <label>Unidade Gestora</label>  
                   <select className="form-control" id="unigest" value={this.state.unigest} onChange={this.onChangeUnigest}>
                     {Object.keys(optionsunidgestoras).map((t,i) => <option key={i} value={optionsunidgestoras[i].label}>{optionsunidgestoras[i].label}</option>)}
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <label>Unidade Orçamentaria:</label>  
+                  <label>Unidade Orçamentaria</label>  
                   <select className="form-control" id="uniorc" value={this.state.uniorc} onChange={this.onChangeUniorc}>
                     {Object.keys(optionsunidorcamentarias).map((t,i) => <option key={i} value={optionsunidorcamentarias[i].label}>{optionsunidorcamentarias[i].label}</option>)}
                   </select>
@@ -760,7 +758,7 @@ export default class Create extends Component {
                 </div>
                 <div className="col-sm-4">
                   <label>Fonte de Recurso</label>  
-                  <select className="form-control" id="fontrec" value={this.state.fonterec} onChange={this.onChangeFontrec}>
+                  <select className="form-control" id="fontrec" value={this.state.fontrec} onChange={this.onChangeFontrec}>
                     {Object.keys(optionsfonterecursos).map((t,i) => <option key={i} value={optionsfonterecursos[i].label}>{optionsfonterecursos[i].label}</option>)}
                   </select>
                 </div>

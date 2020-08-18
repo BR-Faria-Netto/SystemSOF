@@ -30,7 +30,7 @@ class App extends Component {
       <Router>
 
 
-        <div className="container" style={{ marginTop: 10, border: '1px solid red', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
 
             <Nav className="navbar navbar-expand-md bg-dark fixed-top">
               <Navbar.Brand href="/">Home</Navbar.Brand>
