@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import * as Icon from 'react-bootstrap-icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
@@ -22,16 +25,19 @@ export default class Index extends Component {
         this.setState({ tipo: response.data });
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error("Ocorrou erro de conexão com o servidor!")
       })
 
     }
 
     delete(row) {
       axios.get(serverapi.name+'tablecode/delete/'+this.props.match.params.dbTable+'/'+row._id)
-          .then(console.log('Deleted'))
-          .catch(err => console.log(err))
-    
+      .then(
+        toast.warning("Registro foi excluido com successo")
+      )
+      .catch(error => {
+        toast.error("Ocorrou erro ao excluir o registro");
+      })
    }
 
     render() {
@@ -75,7 +81,8 @@ export default class Index extends Component {
       ];
 
       return (
-        <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+          <ToastContainer />
           <h3 align="center">Relação de {this.props.match.params.pgTitle}</h3>
           <BootstrapTable 
               keyField='id' 

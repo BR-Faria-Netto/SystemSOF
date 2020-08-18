@@ -752,7 +752,7 @@ export default class Edit extends Component {
     }
 
     return (
-        <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
           <form onSubmit={this.onSubmit}>
               <div id='nad'>
                 <div className="form-row">
@@ -1076,6 +1076,7 @@ export default class Edit extends Component {
               </div>
               <hr></hr>
               <div className="form-row">
+                  <ToastContainer />
                   <div className="col-sm-1">
                       <input type="submit" value="Salvar" className="btn btn-primary"/>
                   </div>

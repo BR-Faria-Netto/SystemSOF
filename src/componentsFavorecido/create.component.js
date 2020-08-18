@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import serverapi from '../serverapi';
 
 export default class Create extends Component {
@@ -106,20 +109,13 @@ export default class Create extends Component {
       agerec : this.state.agerec,
       ccrec : this.state.ccrec
     };
+
     axios.post(serverapi.name+'favorecidos/add', obj)
-        .then(res => console.log(res.data));
-    
-    this.setState({
-      nomefav : '',
-      bai : '',
-      ender : '',
-      cid : '',
-      cep : '',
-      uf : '',
-      cnpj : '',
-      agerec : '',
-      banrec : '',
-      ccrec : ''
+    .then(res => {
+      toast.success("Registro foi salvo com successo");
+    })
+    .catch(error => {
+      toast.error("Ocorrou erro ao salvar o registro");
     })
 
     this.props.history.push('/indexFavorecido');
@@ -128,14 +124,19 @@ export default class Create extends Component {
  
   render() {
     return (
-        <div style={{ marginTop: 10 }}>
+
+        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <form onSubmit={this.onSubmit}>
-        
+
+                <div className="col-sm-6">
+                    <h3>Inclusão de Favorecido</h3>
+                </div>
+
                 <div className="form-row">
                   <div className="col-sm-12">
                     <label>Nome do Favorecido:</label>  
-                  </div>
                     <input id="nomefav" name="nomefav" className="form-control input-md" required="" type="text" value={this.nomefav} onChange={this.onChangeNomefav} />
+                  </div>
                 </div>
 
                 <div className="form-row">
@@ -182,9 +183,9 @@ export default class Create extends Component {
                     <input id="ccrec" name="ccrec" className="form-control input-md" required="" type="text" value={this.ccrec} onChange={this.onChangeCcrec}/>
                   </div>
                 </div>
-
                 <hr></hr>
                 <div className="form-row">
+                    <ToastContainer />
                     <div className="col-sm-2">
                         <input type="submit" value="Salvar" className="btn btn-primary"/>
                     </div>

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import serverapi from '../serverapi';
 
 export default class Edit extends Component {
@@ -44,17 +48,25 @@ export default class Edit extends Component {
       codigo: this.state.codigo,
       descricao: this.state.descricao
     };
+
+
     axios.post(serverapi.name+'tablecode/update/'+this.props.match.params.dbTable+'/'+this.props.match.params.id, obj)
-        .then(res => console.log(res.data));
+    .then(res => {
+      toast.success("Registro foi salvo com successo");
+    })
+    .catch(error => {
+      toast.error("Ocorrou erro ao salvar o registro");
+    })
     
     this.props.history.push('/indexTableCode/'+this.props.match.params.dbTable+'/'+this.props.match.params.pgTitle);
+
   }
  
   render() {
 
     return (
 
-      <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+      <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
         <h3 align="center">Alteração de {this.props.match.params.pgTitle}</h3>
         <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -69,12 +81,10 @@ export default class Edit extends Component {
                       <input type="text" className="form-control" value={this.state.descricao} onChange={this.onChangeDescricao}/>
                     </div>
                 </div>
-                <div></div>
+                <hr></hr>
                 <div className="form-group">
-                    <input type="submit" 
-                      value="Salvar" 
-                      className="btn btn-primary"/>
-
+                    <ToastContainer />
+                    <input type="submit" value="Salvar" className="btn btn-primary"/>
                 </div>
             </form>
         </div>

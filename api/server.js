@@ -52,11 +52,11 @@ app.use('/unidorcamentarias',unidorcamentariasRoute);
 
 app.use('/nads', nadsRoute);
 
-// var ip = require("ip");
-// app.listen(PORT, function(){
-//   console.log('Server is running on Port:',ip.address()+':'+PORT);
-// });
-
+var ip = require("ip");
 app.listen(PORT, function(){
-  console.log('Server is running on Port:',PORT);
+   console.log('Server is running on Port:',ip.address()+':'+PORT);
 });
+
+// app.listen(PORT, function(){
+//   console.log('Server is running on Port:',PORT);
+// });

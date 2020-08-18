@@ -9,7 +9,7 @@ import * as Icon from 'react-bootstrap-icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
+//import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 
 import serverapi from '../serverapi';
 
@@ -27,14 +27,18 @@ export default class Index extends Component {
         this.setState({ nads: response.data });
       })
       .catch(function (error) {
-        toast.error("Ocorrou erro de conecxão com o servidor!")
+        toast.error("Ocorrou erro de conexão com o servidor!")
       })
     }
 
     delete(row) {
-      axios.get(serverapi.name+'nads/delete/'+row._id)
-      .then(console.log('Deleted'))
-      .catch(err => console.log(err))
+      axios.get(serverapi.name + 'nads/delete/'+row._id)
+      .then(
+        toast.warning("Registro foi excluido com successo")
+      )
+      .catch(error => {
+        toast.error("Ocorrou erro ao excluir o registro");
+      })
     }
 
     render() {
@@ -125,8 +129,8 @@ export default class Index extends Component {
          }
       ];
 
-      const { SearchBar, ClearSearchButton } = Search;
-      const { ExportCSVButton } = CSVExport;
+      // const { SearchBar, ClearSearchButton } = Search;
+      // const { ExportCSVButton } = CSVExport;
 
       const options = {
          paginationSize: 3,
@@ -149,14 +153,12 @@ export default class Index extends Component {
       };
             
       return (
-        <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <div className="form-row">
                 <ToastContainer />
                 <div className="col-sm-11">
                   <h3 align="center">Autorização de Despesa</h3>
                 </div>
-                <div className="col-sm-1">
-                </div> 
             </div>
 
             {/* <ToolkitProvider

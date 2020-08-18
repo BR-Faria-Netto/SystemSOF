@@ -728,8 +728,12 @@ export default class Edit extends Component {
     };
 
     axios.post(serverapi.name + 'nads/update/'+this.props.match.params.id, obj)
-    .then(res => {toast.success("Registro foi salvo com successo");})
-    .catch(error => {toast.error("Ocorrou erro ao salvar o registro");})
+    .then(res => {
+      toast.success("Registro foi salvo com successo");
+    })
+    .catch(error => {
+      toast.error("Ocorrou erro ao salvar o registro");
+    })
 
     this.props.history.push('/indexNad');
   
@@ -756,7 +760,7 @@ export default class Edit extends Component {
 
     return (
   
-        <div className="container" style={{ marginLef: 50, marginTop: 40, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <form onSubmit={this.onSubmit}>
               <div id='nad'>
                 <div className="form-row">
@@ -1078,7 +1082,6 @@ export default class Edit extends Component {
                 </div>
               </div>
               <hr></hr>
-              
               <div className="form-row">
                   <div className="col-sm-1">
                       <ToastContainer />
