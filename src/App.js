@@ -21,28 +21,34 @@ import EditNad from './componentsNad/edit.component';
 import CloneNad from './componentsNad/clone.component';
 import IndexNad from './componentsNad/index.component';
 
+import CreateNdc from './componentsNdc/create.component';
+import EditNdc from './componentsNdc/edit.component';
+import CloneNdc from './componentsNdc/clone.component';
+import IndexNdc from './componentsNdc/index.component';
+
+
 class App extends Component {
 
   render() {
+
     return (
       <Router>
 
-
-        <div className="container" style={{ marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
-
-          {/* <div style={{background: `url(${Background})`, marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> */}
-
-
+        <div className="container bg-dim full-bg-size" style={{ background: Background, marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        
             <Nav className="navbar navbar-expand-md bg-dark fixed-top">
-              <Navbar.Brand href="/">Home</Navbar.Brand>
+              <Navbar.Brand className="text-white" href="/">Home</Navbar.Brand>
               <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav.Link href="/indexNad">Autorização</Nav.Link>
-                <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
-                <Nav className="mr-auto">
-                  <NavDropdown title="Cadastro" id="collasible-nav-dropdown">
-
+              <Nav className="mr-auto">
+                <Nav.Link className="text-white" href="/indexFavorecido">Favorecido</Nav.Link>
+                  <NavDropdown style={{ backgroundColor: '#000' }} title="Despesas" id="collasible-nav-dropdown">
+                    <NavDropdown.Item href="/indexNad">Autorização</NavDropdown.Item>
+                    <NavDropdown.Item href="/indexNdc">Descentralização</NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown className="text-white" title="Cadastro" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="/indexTableCode/tipocreditos/Tipo de Crédito">Tipo de Credito</NavDropdown.Item>
-                    <NavDropdown.Item href="/indexTableCode/tipoeventos/Tipo de Evento">Tipo de Evento</NavDropdown.Item>
+                    <NavDropdown.Item href="/indexTableCode/tipoeventos/Evento da Nad">Evento Nad</NavDropdown.Item>
+                    <NavDropdown.Item href="/indexTableCode/eventondcs/Evento da Ndc">Evento Ndc</NavDropdown.Item>
                     <NavDropdown.Item href="/indexTableCode/tipoempenhos/Tipo de Empenho">Tipo de Evento</NavDropdown.Item>
                     <NavDropdown.Item href="/indexTableCode/tipolicitacoes/Tipo de Licitação">Tipo de Licitação</NavDropdown.Item>
                     <NavDropdown.Item href="/indexTableCode/fonterecursos/Fonte de Recurso">Fonte Recurso</NavDropdown.Item>
@@ -50,7 +56,6 @@ class App extends Component {
                     <NavDropdown.Item href="/indexTableCode/progtrabalhos/Programa de Trabalho">Programa de Trabalho</NavDropdown.Item>
                     <NavDropdown.Item href="/indexTableCode/unidgestoras/Unidade Gestora">Unidade Gestora</NavDropdown.Item>
                     <NavDropdown.Item href="/indexTableCode/unidorcamentarias/Unidade Orçamentária">Unidade Orçamentaria</NavDropdown.Item>
-                    
                   </NavDropdown>
                 </Nav>
                 <Nav>
@@ -61,6 +66,8 @@ class App extends Component {
               </Navbar.Collapse>
 
             </Nav>
+
+            
             <Switch>
 
                 <Route exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
@@ -76,6 +83,12 @@ class App extends Component {
                 <Route path='/cloneNad/:id' component={ CloneNad } /> 
                 <Route path='/indexNad' component={ IndexNad } />
 
+                <Route exact path='/createNdc' component={ CreateNdc } />
+                <Route path='/editNdc/:id' component={ EditNdc } /> 
+                <Route path='/cloneNdc/:id' component={ CloneNdc } /> 
+                <Route path='/indexNdc' component={ IndexNdc } />
+
+
             </Switch>
         </div>
 
@@ -84,5 +97,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

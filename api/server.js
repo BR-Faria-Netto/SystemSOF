@@ -8,18 +8,9 @@ const config = require('./DB.js');
 
 const tablecodeRoute = require('./tableCode.route');
 const favorecidosRoute = require('./favorecidos.route');
-const tipoeventosRoute = require('./tipoeventos.route');
-const fonterecursosRoute = require('./fonterecursos.route');
-const naturezadespesasRoute = require('./naturezadespesas.route');
-const progtrabalhosRoute = require('./progtrabalhos.route');
-const tipoempenhosRoute = require('./tipoempenhos.route');
-const grupodespesasRoute = require('./grupodespesas.route');
-const tipolicitacoesRoute = require('./tipolicitacoes.route');
-const unidgestorasRoute = require('./unidgestoras.route');
-const unidorcamentariasRoute = require('./unidorcamentarias.route');
-
 const nadsRoute = require('./nads.route');
-const tipocreditosRoute = require('./tipocreditos.route.js');
+const ndcsRoute = require('./ndcs.route');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -34,29 +25,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/tablecode', tablecodeRoute);
-
 app.use('/favorecidos', favorecidosRoute);
-app.use('/tipoeventos', tipoeventosRoute);
-app.use('/tipocreditos', tipocreditosRoute);
-
-app.use('/tipocreditos', tipocreditosRoute);
-app.use('/fonterecursos', fonterecursosRoute);
-app.use('/naturezadespesas', naturezadespesasRoute);
-app.use('/progtrabalhos', progtrabalhosRoute);
-app.use('/tipoempenhos', tipoempenhosRoute);
-app.use('/grupodespesas', grupodespesasRoute);
-
-app.use('/tipolicitacoes',tipolicitacoesRoute);
-app.use('/unidgestoras',unidgestorasRoute);
-app.use('/unidorcamentarias',unidorcamentariasRoute);
-
 app.use('/nads', nadsRoute);
+app.use('/ndcs', ndcsRoute);
 
 var ip = require("ip");
 app.listen(PORT, function(){
    console.log('Server is running on Port:',ip.address()+':'+PORT);
 });
-
-// app.listen(PORT, function(){
-//   console.log('Server is running on Port:',PORT);
-// });

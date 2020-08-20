@@ -11,20 +11,11 @@ import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
 
-
 var optionstipoeventos = [];
-axios.get(serverapi.name+'tablecode/tipoeventos').then(resp => {
+axios.get(serverapi.name+'tablecode/eventondcs').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipoeventos.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
-
-var optionsgrupodespesas = [];
-axios.get(serverapi.name + 'tablecode/grupodespesas').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionsgrupodespesas.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
@@ -33,14 +24,6 @@ axios.get(serverapi.name + 'tablecode/unidgestoras').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsunidgestoras.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
-
-var optionsunidorcamentarias = [];
-axios.get(serverapi.name + 'tablecode/unidorcamentarias').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionsunidorcamentarias.push({ value: (key, value.descricao), label: (key, value.descricao )});
   });
 });
 
@@ -77,50 +60,20 @@ axios.get(serverapi.name + 'favorecidos').then(resp => {
   });
 });
 
-var optionstipocreditos = [];
-axios.get(serverapi.name + 'tablecode/tipocreditos').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionstipocreditos.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
-
-var optionstipoempenhos = [];
-axios.get(serverapi.name + 'tablecode/tipoempenhos').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionstipoempenhos.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
-
-var optionstipolicitacoes = [];
-axios.get(serverapi.name + 'tablecode/tipolicitacoes').then(resp => {
-  Object.entries(resp.data).forEach(entry => {
-    const [key, value] = entry;
-    optionstipolicitacoes.push({ value: (key, value.descricao), label: (key, value.descricao )});
-  });
-});
 
 export default class Create extends Component {
   constructor(props) {
     super(props);
     
-    this.onChangeNumnad = this.onChangeNumnad.bind(this);
-    this.onChangeProcnad = this.onChangeProcnad.bind(this);
-    this.onChangeDatanad = this.onChangeDatanad.bind(this);
-    this.onChangeEvenad = this.onChangeEvenad.bind(this);
-    this.onChangeCatgast = this.onChangeCatgast.bind(this); 
-    this.onChangeAdant = this.onChangeAdant.bind(this);  
+    this.onChangeNumndc = this.onChangeNumndc.bind(this);
+    this.onChangeProcndc = this.onChangeProcndc.bind(this);
+    this.onChangeDatandc = this.onChangeDatandc.bind(this);
+    this.onChangeEvendc = this.onChangeEvendc.bind(this);
     this.onChangeSecret = this.onChangeSecret.bind(this); 
     this.onChangeUnigest = this.onChangeUnigest.bind(this);
-    this.onChangeUniorc = this.onChangeUniorc.bind(this); 
     this.onChangeProgtrab = this.onChangeProgtrab.bind(this); 
     this.onChangeNatdesp = this.onChangeNatdesp.bind(this); 
     this.onChangeFontrec = this.onChangeFontrec.bind(this); 
-    this.onChangeTipcre = this.onChangeTipcre.bind(this); 
-    this.onChangeBanpag = this.onChangeBanpag.bind(this); 
-    this.onChangeAgepag = this.onChangeAgepag.bind(this); 
-    this.onChangeCcpag = this.onChangeCcpag.bind(this); 
     this.onChangeNomefav = this.onChangeNomefav.bind(this); 
     this.onChangeBai = this.onChangeBai.bind(this); 
     this.onChangeEnder = this.onChangeEnder.bind(this);
@@ -128,11 +81,7 @@ export default class Create extends Component {
     this.onChangeCep = this.onChangeCep.bind(this); 
     this.onChangeUf = this.onChangeUf.bind(this); 
     this.onChangeCnpj = this.onChangeCnpj.bind(this); 
-    this.onChangeAgerec = this.onChangeAgerec.bind(this); 
-    this.onChangeBanrec = this.onChangeBanrec.bind(this); 
-    this.onChangeCcrec = this.onChangeCcrec.bind(this); 
     this.onChangeValor = this.onChangeValor.bind(this); 
-    this.onChangeTipemp = this.onChangeTipemp.bind(this);
     this.onChangeExtenso = this.onChangeExtenso.bind(this);
     this.onChangeDescdesp = this.onChangeDescdesp.bind(this); 
     this.onChangeJan = this.onChangeJan.bind(this);  
@@ -147,9 +96,6 @@ export default class Create extends Component {
     this.onChangeOut = this.onChangeOut.bind(this);  
     this.onChangeNov = this.onChangeNov.bind(this);  
     this.onChangeDez = this.onChangeDez.bind(this);  
-    this.onChangeTiplic = this.onChangeTiplic.bind(this);  
-    this.onChangeDataabert = this.onChangeDataabert.bind(this);  
-    this.onChangeNumerolic = this.onChangeNumerolic.bind(this);  
     this.onChangeBaselegal = this.onChangeBaselegal.bind(this);  
     this.onChangeEmissor = this.onChangeEmissor.bind(this);  
     this.onChangeDeleemi = this.onChangeDeleemi.bind(this);  
@@ -168,22 +114,15 @@ export default class Create extends Component {
     var data = moment(new Date()).format("DD/MM/YYYY");
    
     this.state = {
-      numnad : '00000',
-      procnad : 'SEI/001/000.00/0000',
-      datanad : data,
-      evenad  : optionstipoeventos[0].label,
-      catgast  : optionsgrupodespesas[0].label,
-      adant  : 'Não',
+      numndc : '00000',
+      procndc : 'SEI/001/000.00/0000',
+      datandc : data,
+      evendc  : optionstipoeventos[0].label,
       secret  : 'Secretária de Estado de Saúde - SES',
       unigest : optionsunidgestoras[0].label,
-      uniorc  : optionsunidorcamentarias[0].label,
       progtrab : optionsprogtrabalhos[0].label,
       natdesp : optionsnaturezadespesas[0].label,
       fontrec : optionsfonterecursos[0].label,
-      tipcre : optionstipocreditos[0].label,
-      banpag : '',
-      agepag : '',
-      ccpag : '',
       nomefav : '',
       bai : '',
       ender : '',
@@ -191,11 +130,7 @@ export default class Create extends Component {
       cep : '',
       uf : '',
       cnpj : '',
-      agerec : '',
-      banrec : '',
-      ccrec : '',
       valor : '0,00',
-      tipemp : optionstipoempenhos[0].label,
       extenso : '',
       descdesp : '',
       jan : '0,00',
@@ -210,9 +145,6 @@ export default class Create extends Component {
       out : '0,00',
       nov : '0,00',
       dez : '0,00',
-      tiplic : optionstipolicitacoes[0].label,
-      dataabert : '',
-      numerolic : '',
       baselegal : '',
       emissor : '',
       deleemi : '',
@@ -229,36 +161,24 @@ export default class Create extends Component {
     }
   }
 
-  onChangeNumnad(e) {
+  onChangeNumndc(e) {
     this.setState({
-      numnad: e.target.value
+      numndc: e.target.value
     });
   }
-  onChangeProcnad(e) {
+  onChangeProcndc(e) {
     this.setState({
-      procnad: e.target.value
+      procndc: e.target.value
     })  
   }
-  onChangeDatanad(e) {
+  onChangeDatandc(e) {
     this.setState({
-      datanad: e.target.value
+      datandc: e.target.value
     })  
   }
-  onChangeEvenad(e) { 
+  onChangeEvendc(e) { 
     this.setState({
-      evenad: e.target.value
-    })  
-  }
-
-  onChangeCatgast(e) {
-    this.setState({
-      catgast: e.target.value
-    })  
-  }
-
-  onChangeAdant(e) {
-    this.setState({
-      adant: e.target.value
+      evendc: e.target.value
     })  
   }
 
@@ -271,12 +191,6 @@ export default class Create extends Component {
   onChangeUnigest(e) {
     this.setState({
       unigest: e.target.value
-    })  
-  }
-
-  onChangeUniorc(e) {
-    this.setState({
-      uniorc: e.target.value
     })  
   }
 
@@ -298,30 +212,6 @@ export default class Create extends Component {
     })  
   }
 
-  onChangeTipcre(e) {
-    this.setState({
-      tipcre: e.target.value
-    })  
-  }
-
-  onChangeBanpag(e) {
-    this.setState({
-      banpag: e.target.value
-    })  
-  }
-
-  onChangeAgepag(e) {
-    this.setState({
-      agepag: e.target.value
-    })  
-  }
-
-  onChangeCcpag(e) {
-    this.setState({
-      ccpag: e.target.value
-    })  
-  }
-
   onChangeNomefav(e) {
     // ta feio mas funciona
     let key = optionsfavorecidos.find(o => o.label === e.target.value).id;
@@ -335,9 +225,6 @@ export default class Create extends Component {
               cep : response.data.cep,
               uf : response.data.uf,
               cnpj : response.data.cnpj,
-              banrec : response.data.banrec,
-              agerec : response.data.agerec,
-              ccrec : response.data.ccrec,
           });
     })
     
@@ -379,24 +266,6 @@ export default class Create extends Component {
     })  
   }
 
-  onChangeAgerec(e) {
-    this.setState({
-      agerec: e.target.value
-    })  
-  }
-
-  onChangeBanrec(e) {
-    this.setState({
-      banrec: e.target.value
-    })  
-  }
-
-  onChangeCcrec(e) {
-    this.setState({
-      ccrec: e.target.value
-    })  
-  }
-
   onChangeValor(e) {
     this.setState({
       valor: e.target.value
@@ -417,13 +286,7 @@ export default class Create extends Component {
        descdesp: e.target.value
     })  
   }
-    
-  onChangeTipemp(e) {
-    this.setState({
-      tipemp: e.target.value
-    })  
-  }
-
+ 
   onChangeJan(e) {
     this.setState({
       jan: e.target.value
@@ -478,6 +341,12 @@ export default class Create extends Component {
     })  
   }
 
+  onChangeOut(e) {
+    this.setState({
+      out: e.target.value
+    })  
+  }
+
   onChangeNov(e) {
     this.setState({
       nov: e.target.value
@@ -487,30 +356,6 @@ export default class Create extends Component {
   onChangeDez(e) {
     this.setState({
       dez: e.target.value
-    })  
-  }
-
-  onChangeTiplic(e) {
-    this.setState({
-      tiplic: e.target.value
-    })  
-  }
-
-  onChangeOut(e) {
-    this.setState({
-      out: e.target.value
-    })  
-  }
-
-  onChangeDataabert(e) {
-    this.setState({
-      dataabert: e.target.value
-    })  
-  }
-
-  onChangeNumerolic(e) {
-    this.setState({
-      numerolic: e.target.value
     })  
   }
 
@@ -596,22 +441,15 @@ export default class Create extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
-      numnad : this.state.numnad,
-      procnad : this.state.procnad,
-      datanad : this.state.datanad,
-      evenad  :  this.state.evenad,
-      catgast : this.state.catgast ,
-      adant  : this.state.adant ,
+      numndc : this.state.numndc,
+      procndc : this.state.procndc,
+      datandc : this.state.datandc,
+      evendc  :  this.state.evendc,
       secret  : this.state.secret,
       unigest : this.state.unigest,
-      uniorc  : this.state.uniorc,
       progtrab : this.state.progtrab,
       natdesp : this.state.natdesp,
       fontrec : this.state.fontrec,
-      tipcre : this.state.tipcre,
-      banpag : this.state.banpag,
-      agepag : this.state.agepag,
-      ccpag : this.state.ccpag,
       nomefav : this.state.nomefav,
       bai : this.state.bai,
       ender : this.state.ender,
@@ -619,11 +457,7 @@ export default class Create extends Component {
       cep : this.state.cep,
       uf : this.state.uf,
       cnpj : this.state.cnpj,
-      banrec : this.state.banrec,
-      agerec : this.state.agerec,
-      ccrec : this.state.ccrec,
       valor : this.state.valor,
-      tipemp : this.state.tipemp,
       extenso : this.state.extenso,
       descdesp : this.state.descdesp,
       jan : this.state.jan,
@@ -638,9 +472,6 @@ export default class Create extends Component {
       out : this.state.out,
       nov : this.state.nov,
       dez : this.state.dez,
-      tiplic : this.state.tiplic,
-      dataabert : this.state.dataabert,
-      numerolic : this.state.numerolic,
       baselegal : this.state.baselegal,
       emissor : this.state.emissor,
       deleemi : this.state.deleemi,
@@ -656,7 +487,7 @@ export default class Create extends Component {
       datarat : this.state.datarat 
     };
 
-    axios.post(serverapi.name + 'nads/add', obj)
+    axios.post(serverapi.name + 'ndcs/add', obj)
     .then(res => {
       toast.success("Registro foi salvo com successo");
     })
@@ -664,7 +495,7 @@ export default class Create extends Component {
       toast.error("Ocorrou erro ao salvar o registro");
     })
 
-    this.props.history.push('/indexNad');
+    this.props.history.push('/indexNdc');
 
   }
  
@@ -672,7 +503,7 @@ export default class Create extends Component {
 
      function print(data) {
        var myWindow = window.open('', 'Impressora');
-       myWindow.document.write('<html><head><title>Impressão de NAD</title>');
+       myWindow.document.write('<html><head><title>Impressão de Ndc</title>');
        myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
        myWindow.document.write('</head><body >');
        myWindow.document.write(document.querySelector(data).innerHTML);
@@ -688,46 +519,25 @@ export default class Create extends Component {
     return (
       <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
          <form onSubmit={this.onSubmit}>
-            <div id='nad'>
+            <div id='ndc'>
               <div className="form-row">
                 <div className="col-sm-6">
-                  <h3>Nota de Autorização de Despesa</h3>
+                  <h3>Nota de Descentralização de Crédito</h3>
                 </div>
                 <div className="col-sm-1">
-                  <label>NAD</label>  
-                  <input type="text" id="numnad" className="form-control input-md" value={this.state.numnad} onChange={this.onChangeNumnad}/>
+                  <label>ndc</label>  
+                  <input type="text" id="numndc" className="form-control input-md" value={this.state.numndc} onChange={this.onChangeNumndc}/>
                 </div>
                 <div className="col-sm-3">
                   <label>Processo</label>  
-                  <input type="text" id="procnad" className="form-control input-md" value={this.state.procnad} onChange={this.onChangeProcnad}/>
+                  <input type="text" id="procndc" className="form-control input-md" value={this.state.procndc} onChange={this.onChangeProcndc}/>
                 </div>
                 <div className="col-sm-2">
                   <label>Data</label>  
-                  <InputMask mask='99/99/9999' slotChar='mm/dd/yyyy' type="text" id="datanad" className="form-control input-md" value={this.state.datanad} onChange={this.onChangeDatanad}/>
+                  <InputMask mask='99/99/9999' slotChar='mm/dd/yyyy' type="text" id="datandc" className="form-control input-md" value={this.state.datandc} onChange={this.onChangeDatandc}/>
                 </div>
               </div>
-              <div className="form-row">
-                <div className="col-sm-4">
-                  <label>Evento da Nad</label>  
-                  <select className="form-control" id="evenad" value={this.state.evenad} onChange={this.onChangeEvenad} >
-                    {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={optionstipoeventos[i].label}>{optionstipoeventos[i].label}</option>)}
-                  </select>
-                </div>
-                <div className="col-sm-4">
-                  <label>Grudo de Despesas</label>  
-                  <select className="form-control" id="catgast" value={this.state.catgast} onChange={this.onChangeCatgast}>
-                    {Object.keys(optionsgrupodespesas).map((t,i) => <option key={i} value={optionsgrupodespesas[i].label}>{optionsgrupodespesas[i].label}</option>)}
-                  </select>
-                </div>
-                <div className="col-sm-1">
-                    <label>Adiantamento</label>  
-                    <select className="form-control" id="adant" value={this.state.adant} onChange={this.onChangeAdant}>
-                          <option>Sim</option>
-                          <option>Não</option>
-                      </select>
-                </div>    
-              </div>
-
+   
               <div className="form-row">
                 <div className="col-sm-4">
                   <label>Secretaria</label>  
@@ -740,9 +550,9 @@ export default class Create extends Component {
                   </select>
                 </div>
                 <div className="col-sm-4">
-                  <label>Unidade Orçamentaria</label>  
-                  <select className="form-control" id="uniorc" value={this.state.uniorc} onChange={this.onChangeUniorc}>
-                    {Object.keys(optionsunidorcamentarias).map((t,i) => <option key={i} value={optionsunidorcamentarias[i].label}>{optionsunidorcamentarias[i].label}</option>)}
+                  <label>Evento da ndc</label>  
+                  <select className="form-control" id="evendc" value={this.state.evendc} onChange={this.onChangeEvendc} >
+                    {Object.keys(optionstipoeventos).map((t,i) => <option key={i} value={optionstipoeventos[i].label}>{optionstipoeventos[i].label}</option>)}
                   </select>
                 </div>
               </div>
@@ -765,27 +575,6 @@ export default class Create extends Component {
                   <select className="form-control" id="fontrec" value={this.state.fontrec} onChange={this.onChangeFontrec}>
                     {Object.keys(optionsfonterecursos).map((t,i) => <option key={i} value={optionsfonterecursos[i].label}>{optionsfonterecursos[i].label}</option>)}
                   </select>
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="col-sm-3">
-                  <label>Tipo de Credito</label>  
-                  <select className="form-control" id="tipcre" value={this.state.tipcre} onChange={this.onChangeTipcre}>
-                    {Object.keys(optionstipocreditos).map((t,i) => <option key={i} value={optionstipocreditos[i].label}>{optionstipocreditos[i].label}</option>)}
-                  </select>
-                </div>
-                <div className="col-sm-2">
-                  <label>Banco</label>  
-                  <input id="banpag" name="banpag" className="form-control input-md" required="" type="text" value={this.state.banpag} onChange={this.onChangeBanpag}/>
-                </div>
-                <div className="col-sm-3">
-                  <label>Agencia</label>  
-                  <input id="agepag" name="agepag" className="form-control input-md" required="" type="text" value={this.state.agepag} onChange={this.onChangeAgepag}/>
-                </div>
-                <div className="col-sm-4">
-                  <label>Conta Corrente</label>  
-                  <input id="ccpag" name="ccpag" className="form-control input-md" required="" type="text" value={this.state.ccpag} onChange={this.onChangeCcpag}/>
                 </div>
               </div>
 
@@ -825,34 +614,13 @@ export default class Create extends Component {
               </div>
 
               <div className="form-row">
-                <div className="col-sm-3">
+                <div className="col-sm-2">
                   <label>Cnpj/Cpf:</label>  
                   <input id="cnpj" name="cnpj" className="form-control input-md" required="" type="text" value={this.state.cnpj} onChange={this.onChangeCnpj}/>
                 </div>
-                <div className="col-sm-3">
-                  <label>Banco</label>  
-                  <input id="banrec" name="banrec" className="form-control input-md" required="" type="text" value={this.state.banrec} onChange={this.onChangeBanrec}/>
-                </div>
                 <div className="col-sm-2">
-                  <label>Agencia</label>  
-                  <input id="agerec" name="agerec" className="form-control input-md" required="" type="text" value={this.state.agerec} onChange={this.onChangeAgerec}/>
-                </div>
-                <div className="col-sm-4">
-                  <label>Conta Corrente</label>  
-                  <input id="ccrec" name="ccrec" className="form-control input-md" required="" type="text" value={this.state.ccrec} onChange={this.onChangeCcrec}/>
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="col-sm-2">
-                  <label>Tipo de Empenho</label>  
-                  <select className="form-control" id="tipemp" value={this.state.tipemp} onChange={this.onChangeTipemp}>
-                    {Object.keys(optionstipoempenhos).map((t,i) => <option key={i} value={optionstipoempenhos[i].label}>{optionstipoempenhos[i].label}</option>)}
-                  </select>
-                </div>
-                <div className="col-sm-2" style={{ textAlign: 'right' }}>
                   <label>Valor</label>  
-                  <CurrencyInput placeholder="0,00" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.valor} onChange={this.onChangeValor}/>
+                  <CurrencyInput placeholder="0,00" className="form-control input-md" required="" type="text" value={this.state.valor} onChange={this.onChangeValor}/>
                 </div>
                 <div className="col-sm-8">
                   <label>Extenso</label>  
@@ -868,73 +636,56 @@ export default class Create extends Component {
               </div>
 
               <div className="form-row" style={{ textAlign: 'right' }}>
-                  <div className="col-sm-2">
-                    <label>Janeiro</label>  
-                    <CurrencyInput placeholder="0,00" id="jan" name="jan" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jan} onChange={this.onChangeJan}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Fevereiro</label>  
-                    <CurrencyInput placeholder="0,00" id="fev" name="fev" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.fev} onChange={this.onChangeFev}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Março</label>  
-                    <CurrencyInput placeholder="0,00" id="mar" name="mar" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mar} onChange={this.onChangeMar}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Abril</label>  
-                    <CurrencyInput placeholder="0,00" id="abr" name="abr" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.abr} onChange={this.onChangeAbr}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Maio</label>  
-                    <CurrencyInput placeholder="0,00" id="mai" name="mai" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mai} onChange={this.onChangeMai}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Junho</label>  
-                    <CurrencyInput placeholder="0,00" id="jun" name="jun" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jun} onChange={this.onChangeJun}/>
-                  </div>
+                <div className="col-sm-2">
+                  <label>Janeiro</label>  
+                  <CurrencyInput placeholder="0,00" id="jan" name="jan" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jan} onChange={this.onChangeJan}/>
                 </div>
-
-                <div className="form-row" style={{ textAlign: 'right' }}>
-                  <div className="col-sm-2">
-                    <label>Julho</label>  
-                    <CurrencyInput placeholder="0,00" id="jul" name="jul" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jul} onChange={this.onChangeJul}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Agosto</label>  
-                    <CurrencyInput placeholder="0,00" id="ago" name="ago" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.ago} onChange={this.onChangeAgo}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Setembro</label>  
-                    <CurrencyInput placeholder="0,00" id="set" name="set" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.set} onChange={this.onChangeSet}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Outubro</label>  
-                    <CurrencyInput placeholder="0,00" id="out" name="out" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.out} onChange={this.onChangeOut}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Novembro</label>  
-                    <CurrencyInput placeholder="0,00" id="nov" name="nov" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.nov} onChange={this.onChangeNov}/>
-                  </div>
-                  <div className="col-sm-2">
-                    <label>Dezembro</label>  
-                    <CurrencyInput placeholder="0,00" id="dez" name="dez" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.dez} onChange={this.onChangeDez}/>
-                  </div>
+                <div className="col-sm-2">
+                  <label>Fevereiro</label>  
+                  <CurrencyInput placeholder="0,00" id="fev" name="fev" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.fev} onChange={this.onChangeFev}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Março</label>  
+                  <CurrencyInput placeholder="0,00" id="mar" name="mar" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mar} onChange={this.onChangeMar}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Abril</label>  
+                  <CurrencyInput placeholder="0,00" id="abr" name="abr" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.abr} onChange={this.onChangeAbr}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Maio</label>  
+                  <CurrencyInput placeholder="0,00" id="mai" name="mai" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mai} onChange={this.onChangeMai}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Junho</label>  
+                  <CurrencyInput placeholder="0,00" id="jun" name="jun" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jun} onChange={this.onChangeJun}/>
+                </div>
               </div>
 
-              <div className="form-row">
-                <div className="col-sm-4">
-                  <label>Tipo de Licitação</label>  
-                  <select className="form-control" id="tiplic" value={this.state.tiplic} onChange={this.onChangeTiplic}>
-                    {Object.keys(optionstipolicitacoes).map((t,i) => <option key={i} value={optionstipolicitacoes[i].label}>{optionstipolicitacoes[i].label}</option>)}
-                  </select>
+              <div className="form-row" style={{ textAlign: 'right' }}>
+                <div className="col-sm-2">
+                  <label>Julho</label>  
+                  <CurrencyInput placeholder="0,00" id="jul" name="jul" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jul} onChange={this.onChangeJul}/>
                 </div>
-                <div className="col-sm-4">
-                  <label>Data de Abertura</label>  
-                  <input id="dataabert" name="dataabert" className="form-control input-md" required="" type="text" value={this.state.dataabert} onChange={this.onChangeDataabert}/>
+                <div className="col-sm-2">
+                  <label>Agosto</label>  
+                  <CurrencyInput placeholder="0,00" id="ago" name="ago" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.ago} onChange={this.onChangeAgo}/>
                 </div>
-                <div className="col-sm-4">
-                  <label>Numero</label>  
-                  <input id="numerolic" name="numerolic" className="form-control input-md" required="" type="text" value={this.state.numerolic} onChange={this.onChangeNumerolic}/>
+                <div className="col-sm-2">
+                  <label>Setembro</label>  
+                  <CurrencyInput placeholder="0,00" id="set" name="set" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.set} onChange={this.onChangeSet}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Outubro</label>  
+                  <CurrencyInput placeholder="0,00" id="out" name="out" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.out} onChange={this.onChangeOut}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Novembro</label>  
+                  <CurrencyInput placeholder="0,00" id="nov" name="nov" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.nov} onChange={this.onChangeNov}/>
+                </div>
+                <div className="col-sm-2">
+                  <label>Dezembro</label>  
+                  <CurrencyInput placeholder="0,00" id="dez" name="dez" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.dez} onChange={this.onChangeDez}/>
                 </div>
               </div>
 
@@ -1009,10 +760,11 @@ export default class Create extends Component {
                     <input type="submit" value="Salvar" className="btn btn-primary"/>
                 </div>
                 <div className="col-sm-1">
-                    <button onClick={() => print('#nad')} className="btn btn-primary">Imprimir</button>
+                    <button onClick={() => print('#ndc')} className="btn btn-primary">Imprimir</button>
                 </div> 
             </div>
         </form>
+
       </div>
       )
   }

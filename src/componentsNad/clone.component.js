@@ -10,7 +10,7 @@ import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
 
 var optionstipoeventos = [];
-axios.get(serverapi.name + 'tipoeventos').then(resp => {
+axios.get(serverapi.name + 'tablecode/tipoeventos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipoeventos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -18,7 +18,7 @@ axios.get(serverapi.name + 'tipoeventos').then(resp => {
 });
 
 var optionsgrupodespesas = [];
-axios.get(serverapi.name + 'grupodespesas').then(resp => {
+axios.get(serverapi.name + 'tablecode/grupodespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsgrupodespesas.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -26,7 +26,7 @@ axios.get(serverapi.name + 'grupodespesas').then(resp => {
 });
 
 var optionsunidgestoras = [];
-axios.get(serverapi.name + 'unidgestoras').then(resp => {
+axios.get(serverapi.name + 'tablecode/unidgestoras').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsunidgestoras.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -34,7 +34,7 @@ axios.get(serverapi.name + 'unidgestoras').then(resp => {
 });
 
 var optionsunidorcamentarias = [];
-axios.get(serverapi.name + 'unidorcamentarias').then(resp => {
+axios.get(serverapi.name + 'tablecode/unidorcamentarias').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsunidorcamentarias.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -42,7 +42,7 @@ axios.get(serverapi.name + 'unidorcamentarias').then(resp => {
 });
 
 var optionsprogtrabalhos = [];
-axios.get(serverapi.name + 'progtrabalhos').then(resp => {
+axios.get(serverapi.name + 'tablecode/progtrabalhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsprogtrabalhos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -50,7 +50,7 @@ axios.get(serverapi.name + 'progtrabalhos').then(resp => {
 });
 
 var optionsnaturezadespesas = [];
-axios.get(serverapi.name + 'naturezadespesas').then(resp => {
+axios.get(serverapi.name + 'tablecode/naturezadespesas').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsnaturezadespesas.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -58,7 +58,7 @@ axios.get(serverapi.name + 'naturezadespesas').then(resp => {
 });
 
 var optionsfonterecursos = [];
-axios.get(serverapi.name + 'fonterecursos').then(resp => {
+axios.get(serverapi.name + 'tablecode/fonterecursos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionsfonterecursos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -75,7 +75,7 @@ axios.get(serverapi.name + 'favorecidos').then(resp => {
 });
 
 var optionstipocreditos = [];
-axios.get(serverapi.name + 'tipocreditos').then(resp => {
+axios.get(serverapi.name + 'tablecode/tipocreditos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipocreditos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -83,7 +83,7 @@ axios.get(serverapi.name + 'tipocreditos').then(resp => {
 });
 
 var optionstipoempenhos = [];
-axios.get(serverapi.name + 'tipoempenhos').then(resp => {
+axios.get(serverapi.name + 'tablecode/tipoempenhos').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipoempenhos.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -91,7 +91,7 @@ axios.get(serverapi.name + 'tipoempenhos').then(resp => {
 });
 
 var optionstipolicitacoes = [];
-axios.get(serverapi.name + 'tipolicitacoes').then(resp => {
+axios.get(serverapi.name + 'tablecode/tipolicitacoes').then(resp => {
   Object.entries(resp.data).forEach(entry => {
     const [key, value] = entry;
     optionstipolicitacoes.push({ value: (key, value.descricao), label: (key, value.descricao )});
@@ -916,9 +916,9 @@ export default class Edit extends Component {
                       {Object.keys(optionstipoempenhos).map((t,i) => <option key={i} value={optionstipoempenhos[i].label}>{optionstipoempenhos[i].label}</option>)}
                     </select>
                   </div>
-                  <div className="col-sm-2">
+                  <div className="col-sm-2" style={{ textAlign: 'right' }}>
                     <label>Valor</label>  
-                    <CurrencyInput placeholder="0,00" className="form-control input-md" required="" type="text" value={this.state.valor} onChange={this.onChangeValor}/>
+                    <CurrencyInput placeholder="0,00" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.valor} onChange={this.onChangeValor}/>
                   </div>
                   <div className="col-sm-8">
                     <label>Extenso</label>  
@@ -933,63 +933,57 @@ export default class Edit extends Component {
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="col-sm-4">
+                <div className="form-row" style={{ textAlign: 'right' }}>
+                  <div className="col-sm-2">
                     <label>Janeiro</label>  
-                    <input id="jan" name="jan" className="form-control input-md" required="" type="text" value={this.state.jan} onChange={this.onChangeJan}/>
+                    <CurrencyInput placeholder="0,00" id="jan" name="jan" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jan} onChange={this.onChangeJan}/>
                   </div>
-                  <div className="col-sm-4">
-                    <label>Maio</label>  
-                    <input id="mai" name="mai" className="form-control input-md" required="" type="text" value={this.state.mai} onChange={this.onChangeMai}/>
-                  </div>
-                  <div className="col-sm-4">
-                    <label>Setembro</label>  
-                    <input id="set" name="set" className="form-control input-md" required="" type="text" value={this.state.set} onChange={this.onChangeSet}/>
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="col-sm-4">
+                  <div className="col-sm-2">
                     <label>Fevereiro</label>  
-                    <input id="fev" name="fev" className="form-control input-md" required="" type="text" value={this.state.fev} onChange={this.onChangeFev}/>
+                    <CurrencyInput placeholder="0,00" id="fev" name="fev" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.fev} onChange={this.onChangeFev}/>
                   </div>
-                  <div className="col-sm-4">
-                    <label>Junho</label>  
-                    <input id="jun" name="jun" className="form-control input-md" required="" type="text" value={this.state.jun} onChange={this.onChangeJun}/>
-                  </div>
-                  <div className="col-sm-4">
-                    <label>Outubro</label>  
-                    <input id="out" name="out" className="form-control input-md" required="" type="text" value={this.state.out} onChange={this.onChangeOut}/>
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="col-sm-4">
+                  <div className="col-sm-2">
                     <label>Março</label>  
-                    <input id="mar" name="mar" className="form-control input-md" required="" type="text" value={this.state.mar} onChange={this.onChangeMar}/>
+                    <CurrencyInput placeholder="0,00" id="mar" name="mar" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mar} onChange={this.onChangeMar}/>
                   </div>
-                  <div className="col-sm-4">
-                    <label>Julho</label>  
-                    <input id="jul" name="jul" className="form-control input-md" required="" type="text" value={this.state.jul} onChange={this.onChangeJul}/>
+                  <div className="col-sm-2">
+                    <label>Abril</label>  
+                    <CurrencyInput placeholder="0,00" id="abr" name="abr" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.abr} onChange={this.onChangeAbr}/>
                   </div>
-                  <div className="col-sm-4">
-                    <label>Novembro</label>  
-                    <input id="nov" name="nov" className="form-control input-md" required="" type="text" value={this.state.nov} onChange={this.onChangeNov}/>
+                  <div className="col-sm-2">
+                    <label>Maio</label>  
+                    <CurrencyInput placeholder="0,00" id="mai" name="mai" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.mai} onChange={this.onChangeMai}/>
+                  </div>
+                  <div className="col-sm-2">
+                    <label>Junho</label>  
+                    <CurrencyInput placeholder="0,00" id="jun" name="jun" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jun} onChange={this.onChangeJun}/>
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="col-sm-4">
-                    <label>Abril</label>  
-                    <input id="abr" name="abr" className="form-control input-md" required="" type="text" value={this.state.abr} onChange={this.onChangeAbr}/>
+                <div className="form-row" style={{ textAlign: 'right' }}>
+                  <div className="col-sm-2">
+                    <label>Julho</label>  
+                    <CurrencyInput placeholder="0,00" id="jul" name="jul" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.jul} onChange={this.onChangeJul}/>
                   </div>
-                  <div className="col-sm-4">
+                  <div className="col-sm-2">
                     <label>Agosto</label>  
-                    <input id="ago" name="ago" className="form-control input-md" required="" type="text" value={this.state.ago} onChange={this.onChangeAgo}/>
+                    <CurrencyInput placeholder="0,00" id="ago" name="ago" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.ago} onChange={this.onChangeAgo}/>
                   </div>
-                  <div className="col-sm-4">
+                  <div className="col-sm-2">
+                    <label>Setembro</label>  
+                    <CurrencyInput placeholder="0,00" id="set" name="set" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.set} onChange={this.onChangeSet}/>
+                  </div>
+                  <div className="col-sm-2">
+                    <label>Outubro</label>  
+                    <CurrencyInput placeholder="0,00" id="out" name="out" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.out} onChange={this.onChangeOut}/>
+                  </div>
+                  <div className="col-sm-2">
+                    <label>Novembro</label>  
+                    <CurrencyInput placeholder="0,00" id="nov" name="nov" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.nov} onChange={this.onChangeNov}/>
+                  </div>
+                  <div className="col-sm-2">
                     <label>Dezembro</label>  
-                    <input id="dez" name="dez" className="form-control input-md" required="" type="text" value={this.state.dez} onChange={this.onChangeDez}/>
+                    <CurrencyInput placeholder="0,00" id="dez" name="dez" className="form-control input-md" style={{ textAlign: 'right' }} required="" type="text" value={this.state.dez} onChange={this.onChangeDez}/>
                   </div>
                 </div>
 
