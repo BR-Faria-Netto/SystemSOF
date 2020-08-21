@@ -113,6 +113,9 @@ export default class Index extends Component {
            formatter: (cellContent, row) => (
              <div className="form-row">
                  <div className="col-sm-4">
+                     <Link to={"/printNdc/"+row._id} className="btn btn-sm btn-warning"><Icon.Printer/></Link>                
+                 </div> 
+                 <div className="col-sm-4">
                      <Link to={"/cloneNdc/"+row._id} className="btn btn-sm btn-warning"><Icon.CloudPlus/></Link>                
                  </div> 
                  <div className="col-sm-4">

@@ -25,7 +25,7 @@ import CreateNdc from './componentsNdc/create.component';
 import EditNdc from './componentsNdc/edit.component';
 import CloneNdc from './componentsNdc/clone.component';
 import IndexNdc from './componentsNdc/index.component';
-
+import PrintNdc from './componentsNdc/print.component';
 
 class App extends Component {
 
@@ -87,7 +87,7 @@ class App extends Component {
                 <Route path='/editNdc/:id' component={ EditNdc } /> 
                 <Route path='/cloneNdc/:id' component={ CloneNdc } /> 
                 <Route path='/indexNdc' component={ IndexNdc } />
-
+                <Route path='/printNdc/:id' component={ PrintNdc } /> 
 
             </Switch>
         </div>

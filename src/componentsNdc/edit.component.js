@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, ReactDOM } from 'react';
 import axios from 'axios';
 import serverapi from '../serverapi';
+
+import { PDFViewer, ReactPDF, PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
+
+const ref = React.createRef();
 
 var optionstipoeventos = [];
 axios.get(serverapi.name + 'tablecode/tipoeventos').then(resp => {
@@ -59,11 +62,12 @@ axios.get(serverapi.name + 'favorecidos').then(resp => {
   });
 });
 
+
 export default class Edit extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.onChangeNumndc = this.onChangeNumndc.bind(this);
     this.onChangeProcndc = this.onChangeProcndc.bind(this);
     this.onChangeDatandc = this.onChangeDatandc.bind(this);
@@ -110,53 +114,54 @@ export default class Edit extends Component {
     this.onChangeDatarat = this.onChangeDatarat.bind(this);  
 
     this.onSubmit = this.onSubmit.bind(this);
-    
+
     this.state = {
-      numndc : '',
-      procndc : '',
-      datandc : '',
-      evendc  : '',
-      secret  : '',
-      unigest : '',
-      progtrab : '',
-      natdesp : '',
-      fontrec : '',
-      nomefav : '',
-      bai : '',
-      ender : '',
-      cid : '',
-      cep : '',
-      uf : '',
-      cnpj : '',
-      valor : '',
-      extenso : '',
-      descdesp : '',
-      jan : '',
-      fev : '',
-      mar : '',
-      abr : '',
-      mai : '',
-      jun : '',
-      jul : '',
-      ago : '',
-      set : '',
-      out : '',
-      nov : '',
-      dez : '',
-      baselegal : '',
-      emissor : '',
-      deleemi : '',
-      matemi : '',
-      dataemi : '',
-      ordenador : '',
-      deleord : '',
-      matord : '',
-      dataord : '',
-      ratificador : '',
-      delerat : '',
-      matrat : '',
-      datarat : ''
-    }
+        show: true,
+        numndc : '',
+        procndc : '',
+        datandc : '',
+        evendc  : '',
+        secret  : '',
+        unigest : '',
+        progtrab : '',
+        natdesp : '',
+        fontrec : '',
+        nomefav : '',
+        bai : '',
+        ender : '',
+        cid : '',
+        cep : '',
+        uf : '',
+        cnpj : '',
+        valor : '',
+        extenso : '',
+        descdesp : '',
+        jan : '',
+        fev : '',
+        mar : '',
+        abr : '',
+        mai : '',
+        jun : '',
+        jul : '',
+        ago : '',
+        set : '',
+        out : '',
+        nov : '',
+        dez : '',
+        baselegal : '',
+        emissor : '',
+        deleemi : '',
+        matemi : '',
+        dataemi : '',
+        ordenador : '',
+        deleord : '',
+        matord : '',
+        dataord : '',
+        ratificador : '',
+        delerat : '',
+        matrat : '',
+        datarat : ''
+     }
 
   }
   
@@ -563,38 +568,39 @@ export default class Edit extends Component {
   
   }
 
+  esconder = () => {
+
+    this.setState({show:false});
+
+  }
+
+  print = () => {
+
+    const oldPage = document.body.innerHTML;
+    const printableElements = document.getElementById('divToPrint').innerHTML;
+    const orderHtml = '<html><head><title>Impressão de Ndc</title></head><body>' + printableElements + '</body></html>'
+    document.body.innerHTML = orderHtml;
+    window.print();
+    document.body.innerHTML = oldPage;
+    this.setState({show:true});
+
+
+
+  }
+
+
+  printDocument() {
+
+
+  }
+
   render() {
-
-    function print(data) {
-
-        let pri;
-        pri.document.open();
-        pri.document.write(document.querySelector(data).innerHTML);
-        pri.document.close();
-        pri.focus();
-        pri.print();
-
-
-        // var myWindow = window.open('', 'Impressora');
-        // myWindow.document.write('<html><head><title>Impressão de ndc</title>');
-        // myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
-        // myWindow.document.write('</head><body >');
-        // myWindow.document.write(document.querySelector(data).innerHTML);
-        // myWindow.document.write('</body></html>');
-        // myWindow.document.close(); 
-      
-        // myWindow.onload=function(){
-        //   myWindow.focus();
-        //   myWindow.print();
-        //   myWindow.close();
-        // };
-        
-    }
-
+   
+    
     return (
       <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
          <form onSubmit={this.onSubmit}>
-            <div id='ndc'>
+            <div id='divToPrint' ref={ref} >
               <div className="form-row">
                 <div className="col-sm-6">
                   <h3>Nota de Descentralização de Crédito</h3>
@@ -656,9 +662,12 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-12">
                   <label>Nome do Favorecido:</label>  
-                  <select className="form-control" id="nomefav" value={this.state.nomefav} onChange={this.onChangeNomefav}>
-                    {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={optionsfavorecidos[i].label}>{optionsfavorecidos[i].label}</option>)}
-                  </select>
+                  { this.state.show?
+                    <select className="form-control" id="nomefav" readony ='true' value={this.state.nomefav} onChange={this.onChangeNomefav}>
+                       {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={optionsfavorecidos[i].label}>{optionsfavorecidos[i].label}</option>)}
+                    </select>
+                    :<input id="nomefav" name="nomefav" className="form-control input-md" required="" type="text" value={this.state.nomefav}/>                    
+                  }
                 </div>
               </div>
 
@@ -829,18 +838,27 @@ export default class Edit extends Component {
               </div>
             </div>
             <hr></hr>
-            <div className="form-row">
-                <ToastContainer />
-                <div className="col-sm-1">
-                    <input type="submit" value="Salvar" className="btn btn-primary"/>
-                </div>
-                <div className="col-sm-1">
-                    <button onClick={() => print('#ndc')} className="btn btn-primary">Imprimir</button>
-                </div> 
-            </div>
-        </form>
+            {
+              this.state.show? <div className="form-row">
+                  <ToastContainer />
+                  <div className="col-sm-1">
+                      <input type="submit" value="Salvar" className="btn btn-primary"/>
+                  </div>
+                  <div className="col-sm-1">
+                      <button onClick={ () => this.esconder() } className="btn btn-primary">Imprimir</button>
+                  </div> 
+
+                  <div className="col-sm-1">
+                      <button onClick={this.printDocument}>Print</button>
+                  </div> 
+
+              </div> : this.print()
+            }
+
+          </form>
       </div>
     )
   }
   
 }
+

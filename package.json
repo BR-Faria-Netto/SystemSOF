@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-pdf/renderer": "^1.6.10",
     "axios": "^0.18.0",
     "bootstrap": "^4.5.0",
     "ip": "^1.1.5",
@@ -25,6 +26,7 @@
     "react-scripts": "2.1.1",
     "react-select": "^3.1.0",
     "react-text-mask": "^5.4.3",
+    "react-to-print": "^2.9.0",
     "react-toastify": "^6.0.8",
     "text-mask-addons": "^3.8.0"
   },
