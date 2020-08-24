@@ -1,5 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Downloads 
+https://www.mongodb.com/try/download/community
+use ZIP version not privilegios administrator
+
+https://nodejs.org/en/download/
+use ZIP version not privilegios administrator
+
 ## Available Scripts
 Init mongodb start configuration directory
 ### `mongod.exe --dbpath c:\mogodb\data example` 
