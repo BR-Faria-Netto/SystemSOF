@@ -735,21 +735,21 @@ export default class Edit extends Component {
 
   render() {
 
-    function print(data) {
-        var myWindow = window.open('', 'Impressora');
-        myWindow.document.write('<html><head><title>Impressão de NAD</title>');
-        myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
-        myWindow.document.write('</head><body >');
-        myWindow.document.write(document.querySelector(data).innerHTML);
-        myWindow.document.write('</body></html>');
-        myWindow.document.close();
+    // function print(data) {
+    //     var myWindow = window.open('', 'Impressora');
+    //     myWindow.document.write('<html><head><title>Impressão de NAD</title>');
+    //     myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
+    //     myWindow.document.write('</head><body >');
+    //     myWindow.document.write(document.querySelector(data).innerHTML);
+    //     myWindow.document.write('</body></html>');
+    //     myWindow.document.close();
         
-        myWindow.onload=function(){ 
-          myWindow.focus();
-          myWindow.print();
-          myWindow.close();
-        };
-    }
+    //     myWindow.onload=function(){ 
+    //       myWindow.focus();
+    //       myWindow.print();
+    //       myWindow.close();
+    //     };
+    // }
 
     return (
         <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
@@ -1072,11 +1072,8 @@ export default class Edit extends Component {
               <div className="form-row">
                   <ToastContainer />
                   <div className="col-sm-1">
-                      <input type="submit" value="Salvar" className="btn btn-primary"/>
+                      <input type="submit" value="Salvar" className="btn btn-sm btn-primary"/>
                   </div>
-                  <div className="col-sm-1">
-                      <button onClick={() => print('#nad')} className="btn btn-primary">Imprimir</button>
-                  </div> 
               </div>
           </form>
       </div>

@@ -112,19 +112,23 @@ export default class Index extends Component {
            ,
            formatter: (cellContent, row) => (
              <div className="form-row">
-                 <div className="col-sm-4">
+                 <div className="col-sm-3">
+                     <Link to={"/printNad/"+row._id} className="btn btn-sm btn-secondary"><Icon.Printer/></Link>                
+                 </div> 
+
+                 <div className="col-sm-3">
                      <Link to={"/cloneNad/"+row._id} className="btn btn-sm btn-warning"><Icon.CloudPlus/></Link>                
                  </div> 
-                 <div className="col-sm-4">
+                 <div className="col-sm-3">
                      <Link to={"/editNad/"+row._id} className="btn btn-sm btn-primary"><Icon.PencilSquare/></Link>
                  </div> 
-                 <div className="col-sm-4">
+                 <div className="col-sm-3">
                      <button onClick={() => this.delete(row)} className="btn btn-sm btn-danger"><Icon.TrashFill/></button>
                  </div> 
              </div>
            ),
            style:{
-             width: '9%'
+             width: '10%'
            }
          }
       ];

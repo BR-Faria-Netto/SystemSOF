@@ -5,11 +5,9 @@ import serverapi from '../serverapi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
-
 
 var optionstipoeventos = [];
 axios.get(serverapi.name + 'tablecode/tipoeventos').then(resp => {
@@ -741,22 +739,22 @@ export default class Edit extends Component {
 
   render() {
 
-    function print(data) {
-        var myWindow = window.open('', 'Impressora');
-        myWindow.document.write('<html><head><title>Impressão de NAD</title>');
-        myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
-        myWindow.document.write('</head><body >');
-        myWindow.document.write(document.querySelector(data).innerHTML);
-        myWindow.document.write('</body></html>');
-        myWindow.document.close(); 
+    // function print(data) {
+    //     var myWindow = window.open('', 'Impressora');
+    //     myWindow.document.write('<html><head><title>Impressão de NAD</title>');
+    //     myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
+    //     myWindow.document.write('</head><body >');
+    //     myWindow.document.write(document.querySelector(data).innerHTML);
+    //     myWindow.document.write('</body></html>');
+    //     myWindow.document.close(); 
       
-        myWindow.onload=function(){
-          myWindow.focus();
-          myWindow.print();
-          myWindow.close();
-        };
+    //     myWindow.onload=function(){
+    //       myWindow.focus();
+    //       myWindow.print();
+    //       myWindow.close();
+    //     };
         
-    }
+    // }
 
     return (
   
@@ -1081,9 +1079,6 @@ export default class Edit extends Component {
                       <ToastContainer />
                       <input type="submit" value="Salvar" className="btn btn-primary"/>
                   </div>
-                  <div className="col-sm-1">
-                      <button onClick={() => print('#nad')} className="btn btn-primary">Imprimir</button>
-                  </div> 
               </div>
           </form>
       </div>

@@ -5,7 +5,7 @@ import serverapi from '../serverapi';
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 
-export default class Print extends Component {
+export default class PrintNdc extends Component {
 
   constructor(props) {
     super(props);
@@ -113,28 +113,15 @@ export default class Print extends Component {
               console.log(error);
           })
 
+     
     }
 
+    componentDidUpdate(prevProps, prevState) {
+      window.print();
+      this.props.history.push('/indexNdc');
+    }
     
   render() {
-
-    function printpp(data) {
-
-         var myWindow = window.open('', 'Impressora');
-         myWindow.document.write('<html><head><title>Impressão de ndc</title>');
-         myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" type="text/css" />');
-         myWindow.document.write('</head><body >');
-         myWindow.document.write(document.querySelector(data).innerHTML);
-         myWindow.document.write('</body></html>');
-         myWindow.document.close(); 
-      
-         myWindow.onload=function(){
-           myWindow.focus();
-           myWindow.print();
-           myWindow.close();
-         };
-    }
-
     return (
       <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
          <form onSubmit={this.onSubmit}>
@@ -359,18 +346,14 @@ export default class Print extends Component {
                   <input id="datarat" name="datarat" className="form-control input-md" required="" type="text" value={this.state.datarat} />
                 </div>
               </div>
+              <hr></hr>
+
             </div>
 
-            <hr></hr>
-            
-            <div className="form-row">
-                <div className="col-sm-1">
-                    <button onClick={() => printpp('#ndc')} className="btn btn-primary">Imprimir</button>
-                </div> 
-            </div>
         </form>
       </div>
-    )
+
+   )
   }
- 
+  
 }

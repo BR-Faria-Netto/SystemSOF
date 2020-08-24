@@ -9,23 +9,24 @@ import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import CreateFavorecido from './componentsFavorecido/create.component';
-import EditFavorecido from  './componentsFavorecido/edit.component';
-import IndexFavorecido from './componentsFavorecido/index.component';
+import EditFavorecido from   './componentsFavorecido/edit.component';
+import IndexFavorecido from  './componentsFavorecido/index.component';
 
 import CreateTableCode from './componentsTableCode/create.component';
-import EditTableCode from './componentsTableCode/edit.component';
-import IndexTableCode from './componentsTableCode/index.component';
+import EditTableCode from   './componentsTableCode/edit.component';
+import IndexTableCode from  './componentsTableCode/index.component';
 
 import CreateNad from './componentsNad/create.component';
-import EditNad from './componentsNad/edit.component';
-import CloneNad from './componentsNad/clone.component';
-import IndexNad from './componentsNad/index.component';
+import EditNad from   './componentsNad/edit.component';
+import CloneNad from  './componentsNad/clone.component';
+import IndexNad from  './componentsNad/index.component';
+import PrintNad from  './componentsNad/print.component';
 
 import CreateNdc from './componentsNdc/create.component';
-import EditNdc from './componentsNdc/edit.component';
-import CloneNdc from './componentsNdc/clone.component';
-import IndexNdc from './componentsNdc/index.component';
-import PrintNdc from './componentsNdc/print.component';
+import EditNdc from   './componentsNdc/edit.component';
+import CloneNdc from  './componentsNdc/clone.component';
+import IndexNdc from  './componentsNdc/index.component';
+import PrintNdc from  './componentsNdc/print.component';
 
 class App extends Component {
 
@@ -82,6 +83,7 @@ class App extends Component {
                 <Route path='/editNad/:id' component={ EditNad } /> 
                 <Route path='/cloneNad/:id' component={ CloneNad } /> 
                 <Route path='/indexNad' component={ IndexNad } />
+                <Route path='/printNad/:id' component={ PrintNad } /> 
 
                 <Route exact path='/createNdc' component={ CreateNdc } />
                 <Route path='/editNdc/:id' component={ EditNdc } /> 

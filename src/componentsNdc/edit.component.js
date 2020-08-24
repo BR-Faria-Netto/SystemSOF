@@ -1,8 +1,6 @@
-import React, { Component, ReactDOM } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import serverapi from '../serverapi';
-
-import { PDFViewer, ReactPDF, PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,8 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 const valorExtenso = require('numero-por-extenso');
-
-const ref = React.createRef();
 
 var optionstipoeventos = [];
 axios.get(serverapi.name + 'tablecode/tipoeventos').then(resp => {
@@ -67,7 +63,9 @@ export default class Edit extends Component {
 
   constructor(props) {
     super(props);
+
     
+
     this.onChangeNumndc = this.onChangeNumndc.bind(this);
     this.onChangeProcndc = this.onChangeProcndc.bind(this);
     this.onChangeDatandc = this.onChangeDatandc.bind(this);
@@ -568,39 +566,13 @@ export default class Edit extends Component {
   
   }
 
-  esconder = () => {
-
-    this.setState({show:false});
-
-  }
-
-  print = () => {
-
-    const oldPage = document.body.innerHTML;
-    const printableElements = document.getElementById('divToPrint').innerHTML;
-    const orderHtml = '<html><head><title>Impressão de Ndc</title></head><body>' + printableElements + '</body></html>'
-    document.body.innerHTML = orderHtml;
-    window.print();
-    document.body.innerHTML = oldPage;
-    this.setState({show:true});
-
-
-
-  }
-
-
-  printDocument() {
-
-
-  }
-
   render() {
    
-    
     return (
       <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
          <form onSubmit={this.onSubmit}>
-            <div id='divToPrint' ref={ref} >
+
+            <div id='divToPrint'>
               <div className="form-row">
                 <div className="col-sm-6">
                   <h3>Nota de Descentralização de Crédito</h3>
@@ -662,12 +634,9 @@ export default class Edit extends Component {
               <div className="form-row">
                 <div className="col-sm-12">
                   <label>Nome do Favorecido:</label>  
-                  { this.state.show?
-                    <select className="form-control" id="nomefav" readony ='true' value={this.state.nomefav} onChange={this.onChangeNomefav}>
-                       {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={optionsfavorecidos[i].label}>{optionsfavorecidos[i].label}</option>)}
-                    </select>
-                    :<input id="nomefav" name="nomefav" className="form-control input-md" required="" type="text" value={this.state.nomefav}/>                    
-                  }
+                  <select className="form-control" id="nomefav" readony ='true' value={this.state.nomefav} onChange={this.onChangeNomefav}>
+                      {Object.keys(optionsfavorecidos).map((t,i) => <option key={i} value={optionsfavorecidos[i].label}>{optionsfavorecidos[i].label}</option>)}
+                  </select>
                 </div>
               </div>
 
@@ -842,17 +811,10 @@ export default class Edit extends Component {
               this.state.show? <div className="form-row">
                   <ToastContainer />
                   <div className="col-sm-1">
-                      <input type="submit" value="Salvar" className="btn btn-primary"/>
+                      <input type="submit" value="Salvar" className="btn btn-sm btn-primary"/>
                   </div>
-                  <div className="col-sm-1">
-                      <button onClick={ () => this.esconder() } className="btn btn-primary">Imprimir</button>
-                  </div> 
+              </div> : <div></div>
 
-                  <div className="col-sm-1">
-                      <button onClick={this.printDocument}>Print</button>
-                  </div> 
-
-              </div> : this.print()
             }
 
           </form>
