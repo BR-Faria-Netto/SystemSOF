@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Background from "./images/Safira.png"
-
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -35,16 +33,17 @@ class App extends Component {
     return (
       <Router>
 
-        <div className="container bg-dim full-bg-size" style={{ background: Background, marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
-        
-            <Nav className="navbar navbar-expand-md bg-dark fixed-top">
-              <Navbar.Brand className="text-white" href="/">Home</Navbar.Brand>
+        <div className="container bg-dim full-bg-size" style={{ marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+              <Navbar.Brand href="/">Home</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link className="text-white" href="/indexFavorecido">Favorecido</Nav.Link>
-                  <NavDropdown style={{ backgroundColor: '#000' }} title="Despesas" id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="/indexNad">Autorização</NavDropdown.Item>
-                    <NavDropdown.Item href="/indexNdc">Descentralização</NavDropdown.Item>
+                <Nav className="mr-auto">
+                  <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
+                  <NavDropdown title="Despesas" id="collasible-nav-dropdown">
+                        <NavDropdown.Item href="/indexNad">Autorização</NavDropdown.Item>
+                        <NavDropdown.Item href="/indexNdc">Descentralização</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown className="text-white" title="Cadastro" id="collasible-nav-dropdown">
                     <NavDropdown.Item href="/indexTableCode/tipoeventos/Evento da Nad">Evento Nad</NavDropdown.Item>
@@ -61,13 +60,11 @@ class App extends Component {
                 </Nav>
                 <Nav>
                   <Nav.Link eventKey={2} href="#memes">
-                    Login
+                      Login
                   </Nav.Link>
                 </Nav>
               </Navbar.Collapse>
-
-            </Nav>
-
+            </Navbar>
             
             <Switch>
 

@@ -9,7 +9,6 @@ import * as Icon from 'react-bootstrap-icons';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-//import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 
 import serverapi from '../serverapi';
 
@@ -17,18 +16,23 @@ export default class Index extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {ndcs: []};
+      this.state = {
+        isLoaded: true,
+        ndcs: []
+      };
       this.pageCurrentIndex = 1;
     }
 
     getCollection() {
-      axios.get(serverapi.name + 'ndcs')
-      .then(response => {
-        this.setState({ ndcs: response.data });
-      })
-      .catch(function (error) {
-        toast.error("Ocorrou erro de conexão com o servidor!")
-      })
+       axios.get(serverapi.name + 'ndcs')
+       .then(response => {
+         this.setState({ ndcs: response.data });
+       })
+       .catch(function 
+         (error) {
+         toast.error("Ocorrou erro de conexão com o servidor!")
+       })
+       
     }
 
     delete(row) {
@@ -131,10 +135,7 @@ export default class Index extends Component {
            }
          }
       ];
-
-      // const { SearchBar, ClearSearchButton } = Search;
-      // const { ExportCSVButton } = CSVExport;
-
+    
       const options = {
          paginationSize: 3,
          pageStartIndex: this.pageCurrentIndex,
@@ -154,9 +155,9 @@ export default class Index extends Component {
           ] 
 
       };
-            
+
       return (
-        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <div className="form-row">
                 <ToastContainer />
                 <div className="col-sm-11">

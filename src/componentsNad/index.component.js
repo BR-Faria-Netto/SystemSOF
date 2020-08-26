@@ -157,7 +157,7 @@ export default class Index extends Component {
       };
             
       return (
-        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <div className="form-row">
                 <ToastContainer />
                 <div className="col-sm-11">

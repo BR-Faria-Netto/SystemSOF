@@ -123,15 +123,15 @@ export default class PrintNdc extends Component {
     
   render() {
     return (
-      <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+      <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
          <form onSubmit={this.onSubmit}>
-            <div id='ndc'>
+            <div id='NDC'>
               <div className="form-row">
                 <div className="col-sm-6">
                   <h3>Nota de Descentralização de Crédito</h3>
                 </div>
                 <div className="col-sm-1">
-                  <label>ndc</label>  
+                  <label>NDC</label>  
                   <input type="text" id="numndc" className="form-control input-md" value={this.state.numndc} />
                 </div>
                 <div className="col-sm-3">

@@ -152,7 +152,7 @@ export default class PrintNad extends Component {
 
     return (
   
-        <div className="container" style={{ marginTop: 50, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+        <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
             <form onSubmit={this.onSubmit}>
               <div id='nad'>
                 <div className="form-row">
@@ -426,19 +426,19 @@ export default class PrintNad extends Component {
                 <div className="form-row">
                   <div className="col-sm-6">
                     <label>Ratificador</label>  
-                    <input id="ratificador" name="ratificador" className="form-control input-md" required="" type="text" value={this.state.ratificador} onChange={this.onChangeRatificador}/>
+                    <input id="ratificador" name="ratificador" className="form-control input-md" required="" type="text" value={this.state.ratificador} />
                   </div>
                   <div className="col-sm-2">
                     <label>Ato de Delegação</label>  
-                    <input id="delerat" name="delerat" className="form-control input-md" required="" type="text" value={this.state.delerat} onChange={this.onChangeDelerat}/>
+                    <input id="delerat" name="delerat" className="form-control input-md" required="" type="text" value={this.state.delerat} />
                   </div>
                   <div className="col-sm-2">
                     <label>Matricula</label>  
-                    <input id="matrat" name="matrat" className="form-control input-md" required="" type="text" value={this.state.matrat} onChange={this.onChangeMatrat}/>
+                    <input id="matrat" name="matrat" className="form-control input-md" required="" type="text" value={this.state.matrat} />
                   </div>
                   <div className="col-sm-2">
                     <label>Data</label>  
-                    <input id="datarat" name="datarat" className="form-control input-md" required="" type="text" value={this.state.datarat} onChange={this.onChangeDatarat}/>
+                    <input id="datarat" name="datarat" className="form-control input-md" required="" type="text" value={this.state.datarat} />
                   </div>
                 </div>
               </div>
@@ -447,5 +447,4 @@ export default class PrintNad extends Component {
       </div>
     )
   }
-  
 }
