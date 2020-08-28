@@ -5,6 +5,8 @@ import serverapi from '../serverapi';
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 
+import SafiraImage from '../images/logoRJ.png'
+
 export default class PrintNad extends Component {
 
   constructor(props) {
@@ -150,11 +152,23 @@ export default class PrintNad extends Component {
 
   render() {
 
+    const style = {
+      image : {
+        width: '100px',
+        height: '100px',
+        marginBotton: 20
+      }
+    }
+
     return (
   
         <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+
             <form onSubmit={this.onSubmit}>
               <div id='nad'>
+
+                <img src={SafiraImage} style={style.image} />
+                <hr></hr>
                 <div className="form-row">
                   <div className="col-sm-6">
                     <h3>Nota de Autorização de Despesa</h3>

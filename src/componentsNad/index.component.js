@@ -17,19 +17,27 @@ export default class Index extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {nads: []};
-      this.pageCurrentIndex = 1;
+      this.state = {nads: [],err: null,isLoading: true}
+      this.getCollection();
     }
 
-    getCollection() {
+   componentDidMount() {
+      this.getCollection();
+   }
+
+   getCollection() {
+
       axios.get(serverapi.name + 'nads')
-      .then(response => {
-        this.setState({ nads: response.data });
-      })
-      .catch(function (error) {
-        toast.error("Ocorrou erro de conexão com o servidor!")
-      })
-    }
+      .then(result => this.setState({
+        nads: result.data,
+        isLoading: false
+      }))
+      .catch(err => this.setState({
+        err,
+        isLoading: false
+      }));
+
+   }
 
     delete(row) {
       axios.get(serverapi.name + 'nads/delete/'+row._id)
@@ -39,164 +47,176 @@ export default class Index extends Component {
       .catch(error => {
         toast.error("Ocorrou erro ao excluir o registro");
       })
+      this.getCollection()
     }
 
     render() {
 
-      this.getCollection();
+        let { err, isLoading} = this.state;
+        if(err) {
+            return (
+              <div className="container alert alert-danger" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Tivemos problemas no servidor de Dados... </div>
+            )
+        }
+        if(isLoading) {
+            return (
+              <div className="container alert alert-success" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Aguarde carregando os dados... </div>
+            )
+        }
 
-      const columns = [
-        {
-          dataField: 'numnad',
-          text: 'Número',
-          filter: textFilter(),
-        }, 
-        {
-          dataField: 'procnad',
-          text: 'Processo',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'datanad',
-          text: 'Data',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'nomefav',
-          text: 'Favorecido',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'valor',
-          text: 'Valor',
-          filter: textFilter(),
-          headerAlign: 'right',
-          attrs: { align: 'right' }
-        },
-        {
-          dataField: 'evenad',
-          text: 'Evento',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'unigest', 
-          text: 'Unidade',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'progtrab',
-          text: 'Programa',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'natdesp',
-          text: 'Natureza',
-          filter: textFilter(),
-        },
-        {
-          dataField: 'fontrec',
-          text: 'Fonte',
-          filter: textFilter(false),
 
-        },
-         {
-           text: 
-             <div className="form-row">
-                 <div className="col-sm-4">
-                   Ação
-                 </div> 
-                 <div className="col-sm-3">
-                   <Link to={'/createNad'} className="btn btn-sm btn-success"><Icon.PlusSquareFill/></Link>
-                 </div> 
-             </div>
-           ,
-           formatter: (cellContent, row) => (
-             <div className="form-row">
-                 <div className="col-sm-3">
-                     <Link to={"/printNad/"+row._id} className="btn btn-sm btn-secondary"><Icon.Printer/></Link>                
-                 </div> 
+        const columns = [
+          {
+            dataField: 'numnad',
+            text: 'Número',
+            filter: textFilter(),
+          }, 
+          {
+            dataField: 'procnad',
+            text: 'Processo',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'datanad',
+            text: 'Data',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'nomefav',
+            text: 'Favorecido',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'valor',
+            text: 'Valor',
+            filter: textFilter(),
+            headerAlign: 'right',
+            attrs: { align: 'right' }
+          },
+          {
+            dataField: 'evenad',
+            text: 'Evento',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'unigest', 
+            text: 'Unidade',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'progtrab',
+            text: 'Programa',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'natdesp',
+            text: 'Natureza',
+            filter: textFilter(),
+          },
+          {
+            dataField: 'fontrec',
+            text: 'Fonte',
+            filter: textFilter(false),
 
-                 <div className="col-sm-3">
-                     <Link to={"/cloneNad/"+row._id} className="btn btn-sm btn-warning"><Icon.CloudPlus/></Link>                
-                 </div> 
-                 <div className="col-sm-3">
-                     <Link to={"/editNad/"+row._id} className="btn btn-sm btn-primary"><Icon.PencilSquare/></Link>
-                 </div> 
-                 <div className="col-sm-3">
-                     <button onClick={() => this.delete(row)} className="btn btn-sm btn-danger"><Icon.TrashFill/></button>
-                 </div> 
-             </div>
-           ),
-           style:{
-             width: '10%'
-           }
-         }
-      ];
+          },
+          {
+            text: 
+              <div className="form-row">
+                  <div className="col-sm-4">
+                    Ação
+                  </div> 
+                  <div className="col-sm-3">
+                    <Link to={'/createNad'} className="btn btn-sm btn-success"><Icon.PlusSquareFill/></Link>
+                  </div> 
+              </div>
+            ,
+            formatter: (cellContent, row) => (
+              <div className="form-row">
+                  <div className="col-sm-3">
+                      <Link to={"/printNad/"+row._id} className="btn btn-sm btn-secondary"><Icon.Printer/></Link>                
+                  </div> 
 
-      // const { SearchBar, ClearSearchButton } = Search;
-      // const { ExportCSVButton } = CSVExport;
+                  <div className="col-sm-3">
+                      <Link to={"/cloneNad/"+row._id} className="btn btn-sm btn-warning"><Icon.CloudPlus/></Link>                
+                  </div> 
+                  <div className="col-sm-3">
+                      <Link to={"/editNad/"+row._id} className="btn btn-sm btn-primary"><Icon.PencilSquare/></Link>
+                  </div> 
+                  <div className="col-sm-3">
+                      <button onClick={() => this.delete(row)} className="btn btn-sm btn-danger"><Icon.TrashFill/></button>
+                  </div> 
+              </div>
+            ),
+            style:{
+              width: '10%'
+            }
+          }
+        ];
 
-      const options = {
-         paginationSize: 3,
-         pageStartIndex: this.pageCurrentIndex,
-         sizePerPageList: [
-              {
-                text: '4', value: 4
-              },
-              {
-                text: '8', value: 8
-              },
-              {
-                text: '16', value: 16
-              },
-              {
-                text: '32', value: 32
-              }
-          ] 
+        // const { SearchBar, ClearSearchButton } = Search;
+        // const { ExportCSVButton } = CSVExport;
 
-      };
-            
-      return (
-        <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
-            <div className="form-row">
-                <ToastContainer />
-                <div className="col-sm-11">
-                  <h3 align="center">Autorização de Despesa</h3>
-                </div>
-            </div>
+        const options = {
+          paginationSize: 3,
+          pageStartIndex: this.pageCurrentIndex,
+          sizePerPageList: [
+                {
+                  text: '4', value: 4
+                },
+                {
+                  text: '8', value: 8
+                },
+                {
+                  text: '16', value: 16
+                },
+                {
+                  text: '32', value: 32
+                }
+            ] 
 
-            {/* <ToolkitProvider
-              keyField="id"
-              data={ this.state.nads } 
-              columns={ columns }
-              search
-            >
-              {
-                props => (
-                  <div>
-                    <h3>Input something at below input field:</h3>
-                    <SearchBar { ...props.searchProps } />
-                    <ClearSearchButton { ...props.searchProps } />
-                    <hr />
-                    <BootstrapTable
-                      { ...props.baseProps }
-                    />
-                    <ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>
+        };
+              
+        return (
+          <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
+              <div className="form-row">
+                  <ToastContainer />
+                  <div className="col-sm-11">
+                    <h3 align="center">Autorização de Despesa</h3>
                   </div>
-                )
-              }
-            </ToolkitProvider>
-            */}
-            <BootstrapTable 
-                keyField='_id' 
+              </div>
+
+              {/* <ToolkitProvider
+                keyField="id"
                 data={ this.state.nads } 
-                columns={ columns } 
-                pagination={ paginationFactory(options) }
-                filter={ filterFactory() }
-                hover
-                wrapperClasses="table-responsive"
-            /> 
-        </div>
-      );
-    }
+                columns={ columns }
+                search
+              >
+                {
+                  props => (
+                    <div>
+                      <h3>Input something at below input field:</h3>
+                      <SearchBar { ...props.searchProps } />
+                      <ClearSearchButton { ...props.searchProps } />
+                      <hr />
+                      <BootstrapTable
+                        { ...props.baseProps }
+                      />
+                      <ExportCSVButton { ...props.csvProps }>Export CSV!!</ExportCSVButton>
+                    </div>
+                  )
+                }
+              </ToolkitProvider>
+              */}
+              <BootstrapTable 
+                  keyField='_id' 
+                  data={ this.state.nads } 
+                  columns={ columns } 
+                  pagination={ paginationFactory(options) }
+                  filter={ filterFactory() }
+                  hover
+                  wrapperClasses="table-responsive"
+              /> 
+          </div>
+        );
+      }
   }

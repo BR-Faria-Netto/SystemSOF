@@ -11,39 +11,66 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 import serverapi from '../serverapi';
 
+var contador = 0;
+
 export default class Index extends Component {
+
 
   constructor(props) {
       super(props);
-      this.state = {tipo: []};
-    }
-  
-    getCollection() {
-
-      axios.get(serverapi.name+'tablecode/'+this.props.match.params.dbTable)
-      .then(response => {
-        this.setState({ tipo: response.data });
-      })
-      .catch(function (error) {
-        toast.error("Ocorrou erro de conexão com o servidor!")
-      })
-
-    }
-
-    delete(row) {
-      axios.get(serverapi.name+'tablecode/delete/'+this.props.match.params.dbTable+'/'+row._id)
-      .then(
-        toast.warning("Registro foi excluido com successo")
-      )
-      .catch(error => {
-        toast.error("Ocorrou erro ao excluir o registro");
-      })
+      // Initialize state first
+      this.state = {
+        tipos: [],
+        err: null,
+        isLoading: true
+      }
+      this.getCollection();
    }
 
-    render() {
-
+   componentDidMount() {
       this.getCollection();
+   }
 
+   getCollection() {
+      axios.get(serverapi.name+'tablecode/'+this.props.match.params.dbTable)
+      .then(result => this.setState({
+        tipos: result.data,
+        isLoading: false
+      }))
+      .catch(err => this.setState({
+        err,
+        isLoading: false
+      }));
+  }
+
+
+  delete(row) {
+     axios.get(serverapi.name+'tablecode/delete/'+this.props.match.params.dbTable+'/'+row._id)
+     .then(
+       toast.warning("Registro foi excluido com successo")
+     )
+     .catch(error => {
+       toast.error("Ocorrou erro ao excluir o registro");
+     })
+     this.getCollection()
+  }
+
+  render() {
+
+      let { err, isLoading} = this.state;
+  
+      if (err) {
+            return (
+              <div className="container alert alert-danger" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Tivemos problemas no servidor de Dados... </div>
+          )
+      }
+
+      if(isLoading) {
+        return (
+          <div className="container alert alert-success" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Aguarde carregando os dados...</div>
+        )
+      }
+    
       const columns = [
             {
               dataField: 'codigo',
@@ -81,12 +108,13 @@ export default class Index extends Component {
       ];
 
       return (
+        
         <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
           <ToastContainer />
-          <h3 align="center">Relação de {this.props.match.params.pgTitle}</h3>
+          <h3 align="center">Relação de {this.props.match.params.pgTitle}  {contador} </h3>
           <BootstrapTable 
               keyField='id' 
-              data={ this.state.tipo } 
+              data={ this.state.tipos } 
               columns={ columns } 
               pagination={ paginationFactory()}
               hover

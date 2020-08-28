@@ -17,25 +17,30 @@ export default class Index extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        isLoaded: true,
-        ndcs: []
-      };
-      this.pageCurrentIndex = 1;
-    }
+        ndcs: [],
+        err: null,
+        isLoading: true
+      }
+      this.getCollection();
+   }
 
-    getCollection() {
-       axios.get(serverapi.name + 'ndcs')
-       .then(response => {
-         this.setState({ ndcs: response.data });
-       })
-       .catch(function 
-         (error) {
-         toast.error("Ocorrou erro de conexão com o servidor!")
-       })
-       
-    }
+   componentDidMount() {
+      this.getCollection();
+   }
 
-    delete(row) {
+   getCollection() {
+      axios.get(serverapi.name + 'ndcs')
+      .then(result => this.setState({
+        ndcs: result.data,
+        isLoading: false
+      }))
+      .catch(err => this.setState({
+        err,
+        isLoading: false
+      }));
+  }
+
+  delete(row) {
       axios.get(serverapi.name + 'ndcs/delete/'+row._id)
       .then(
         toast.warning("Registro foi excluido com successo")
@@ -43,11 +48,24 @@ export default class Index extends Component {
       .catch(error => {
         toast.error("Ocorrou erro ao excluir o registro");
       })
-    }
+      this.getCollection()
+  }
 
-    render() {
+  render() {
 
-      this.getCollection();
+      let { err, isLoading} = this.state;
+  
+      if (err) {
+            return (
+              <div className="container alert alert-danger" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Tivemos problemas no servidor de Dados... </div>
+          )
+      }
+
+      if(isLoading) {
+        return (
+          <div className="container alert alert-success" style={{ marginTop: 20, marginBotton: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}> Aguarde carregando os dados...</div>
+        )
+      }
 
       const columns = [
         {
