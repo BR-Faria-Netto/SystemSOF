@@ -5,7 +5,8 @@ import serverapi from '../serverapi';
 import CurrencyInput from '../componentsCurrency/CurrencyInput'
 import InputMask from 'react-input-mask';
 
-import SafiraImage from '../images/logoRJ.png'
+const logo = require('../images/logoRJ.png'); 
+
 
 export default class PrintNad extends Component {
 
@@ -152,14 +153,8 @@ export default class PrintNad extends Component {
 
   render() {
 
-    const style = {
-      image : {
-        width: '100px',
-        height: '100px',
-        marginBotton: 20
-      }
-    }
-
+    
+    
     return (
   
         <div className="container" style={{ marginTop: 20, width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
@@ -167,8 +162,25 @@ export default class PrintNad extends Component {
             <form onSubmit={this.onSubmit}>
               <div id='nad'>
 
-                <img src={SafiraImage} style={style.image} />
+                <div className="form-row">
+                    <div className="col-sm-2">
+                        <img src={logo} style={{width: '100px', height: '100px'}} alt=""/>
+                    </div>
+                    <div className="col-sm-6">
+                      <div className="form-row">
+                          <label>Governo do Estado do Rio de Janeiro</label>  
+                      </div>
+                      <div className="form-row">
+                          <label>Secretaria de Estado de Saúde</label>  
+                      </div>
+                      <div className="form-row">
+                          <label>Fundo Estadual de Saúde</label>  
+                      </div>
+                    </div>
+                </div>
+
                 <hr></hr>
+                
                 <div className="form-row">
                   <div className="col-sm-6">
                     <h3>Nota de Autorização de Despesa</h3>

@@ -26,23 +26,39 @@ import CloneNdc from  './componentsNdc/clone.component';
 import IndexNdc from  './componentsNdc/index.component';
 import PrintNdc from  './componentsNdc/print.component';
 
+import "./style.css";
+
+import Background from './images/Safira.png'
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state ={ show:true} 
+  }
+
+  handleClick = value => () => {
+    this.setState( {show : false})
+  };
+
+  homeClick = value => () => {
+    this.setState( {show : true})
+  };
 
   render() {
 
     return (
+      
       <Router>
-
-        <div className="container bg-dim full-bg-size" style={{ marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>
-
+        <div className="responsive bg-dim full-bg-size" style={{ marginTop: 10, border: '2px solid #D3D3D3', width:'100%', height: '100%', maxWidth: '100%', minheight: '100%'}}>                  
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-              <Navbar.Brand href="/">Home</Navbar.Brand>
+              <Navbar.Brand href="/" onClick={this.homeClick()}>Home</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                   <Nav.Link href="/indexFavorecido">Favorecido</Nav.Link>
                   <NavDropdown title="Despesas" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="/indexNad">Autorização</NavDropdown.Item>
+                        <NavDropdown.Item href="/indexNad" onClick={this.handleClick()}>Autorização</NavDropdown.Item>
                         <NavDropdown.Item href="/indexNdc">Descentralização</NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown className="text-white" title="Cadastro" id="collasible-nav-dropdown">
@@ -65,7 +81,15 @@ class App extends Component {
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
-            
+
+            {this.state.show? 
+              <div className="foo" >
+                  <img src={Background} style={{width: '100%', height: '100%'}} resizeMode="contain" alt=""/> 
+              </div>
+            : 
+              <div></div>
+            }
+        
             <Switch>
 
                 <Route exact path='/createTableCode/:dbTable/:pgTitle' component={ CreateTableCode } />
@@ -89,13 +113,13 @@ class App extends Component {
                 <Route path='/printNdc/:id' component={ PrintNdc } /> 
 
             </Switch>
-        </div>
 
-      </Router>
+        </div>
      
+      </Router>
+
     );
   }
 }
-
 
 export default App;
